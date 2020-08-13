@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ company.Symbol }}{% endblock %}
+
+{% block content %}
+    <div> {{ articles.totalResults }}  {{ company.Name }} </div>
+    <div class="content">
+        {% include 'Site/article.html' %}
+        <div class="watchlist-container">asdfasdf</div>
+    </div>
+{% endblock %}
