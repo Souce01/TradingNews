@@ -42,6 +42,6 @@ def company(request, symbol, filter='relevancy', pageNb=1):
         raise Http404("error")
     
     articles = newsapi.get_everything(
-        q="{0} OR {1}".format(company['Name'], company['Symbol']), language='en', sort_by=filter, page=pageNb)
+        q="{0} AND {1}".format(company['Name'], company['Symbol']), language='en', sort_by=filter, page=pageNb)
 
     return render(request, 'Site/company.html', { 'company': company, 'articles': articles, 'page': pageNb, 'filter': filter})
