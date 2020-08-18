@@ -34,27 +34,15 @@
     </div>
     <!-- ARTICLES -->
     {% for article in articles.articles %}
-        <div class="article">
-            <div class="article-header">
-                <!-- use TradingNews logo when there's no image -->
-                <img src="{{ article.urlToImage|default_if_none:'https://static.vecteezy.com/system/resources/thumbnails/000/604/014/small/2304-16.jpg' }}" class="article-header-img"/>
-                <div class="article-header-info">
-                    <!-- time the article is published at. Should be set according to local of time of client -->
-                    <div class="article-header-published">published: {{ article.publishedAt|format }}</div>
-                    <h3>{{ article.title }}</h3>
-                    <a href="{{ article.url }}" target="_blank" class="article-link">{{ article.url }}</a>
-                </div>
-                <a class="chevron--down chev">
-                    <svg width="60" height="60" version="1.1" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
-                        <g class="chevron__container">
-                            <line class="chevron__line1" x1="10" y1="50" x2="50" y2="50" />
-                            <line class="chevron__line2" x1="90" y1="50" x2="50" y2="50" />
-                        </g>    
-                    </svg>
-                </a>
+        <a class="article" href="{{ article.url }}" target="_blank">
+            <img src="{{ article.urlToImage|default_if_none:'https://static.vecteezy.com/system/resources/thumbnails/000/604/014/small/2304-16.jpg' }}" class="article-img"/>
+            <div class="article-content">
+                <!-- time the article is published at. Should be set according to local of time of client -->
+                <div class="article-published">{{ article.publishedAt|format }}</div>
+                <h3 class="article-title">{{ article.title }}</h3>
+                <div class="article-description">{{ article.description }}</div>
             </div>
-            <p class="article-description">{{ article.description }}</p>
-        </div>
+        </a>
     {% endfor %}
     <div class="button-container">
         {% if page > 1 %}
