@@ -13,4 +13,3 @@ def format(value):
 @register.filter
 def percentage(value):
     return str(float(value) * 100) + "%"
-
