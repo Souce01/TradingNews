@@ -21,8 +21,21 @@ a{
   align-items: center;
 }
 
+.navbar-options-container{
+  display: flex;
+  align-items: center;
+}
+
 .navbar-title{
   margin: auto 0px;
+}
+
+.navbar-options-element{
+  margin-left: 25px;
+}
+
+.navbar-search-field{
+  
 }
 
 .sign-up-button, .login-button{
@@ -37,7 +50,6 @@ a{
 .login-button{
   margin-left: 10px;
   border: 1px solid #B0B0B0;
-
 }
 
 .content{
