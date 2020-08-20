@@ -25,6 +25,21 @@ a{
   margin: auto 0px;
 }
 
+.sign-up-button, .login-button{
+  padding: 8px;
+  border-radius: 3px;
+}
+
+.sign-up-button{
+  background-color: #052F5F;
+}
+
+.login-button{
+  margin-left: 10px;
+  border: 1px solid #B0B0B0;
+
+}
+
 .content{
   display: flex;
   flex-direction: row;
