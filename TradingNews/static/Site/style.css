@@ -11,13 +11,20 @@ a{
     color: #e2dddb;
 }
 
-
-
-.navbar{
+.navbar-container{
+  display: flex;
+  align-items: center;
   height: 52px;
   background-color: #343434;
+
+}
+
+.navbar{
+  width: 950px;
+  min-width: 750px;
+  margin: 0px auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
