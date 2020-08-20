@@ -11,18 +11,11 @@ a{
     color: #e2dddb;
 }
 
-.navbar-container{
-  display: flex;
-  align-items: center;
+.navbar{
+  padding: 0px 8vw;
   height: 52px;
   background-color: #343434;
 
-}
-
-.navbar{
-  width: 950px;
-  min-width: 750px;
-  margin: 0px auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
