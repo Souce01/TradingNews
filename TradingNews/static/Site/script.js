@@ -9,3 +9,4 @@ $(".article")
   }, function(){
     $(this).find(".article-title").css("color", "white")
   })
+

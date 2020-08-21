@@ -36,7 +36,12 @@ a{
 }
 
 .navbar-search-field{
-  
+  width: 391px;
+  height: 25px;
+  background-color: #14110F;
+  color: #CDCDCD;
+  padding: 1px 4px;
+  border: none;
 }
 
 .sign-up-button, .login-button{
