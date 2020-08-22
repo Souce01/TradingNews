@@ -1,4 +1,6 @@
+from django.contrib.auth import login, authenticate
 from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.forms import UserCreationForm
 from django.http import Http404
 from django.contrib import messages
 from .models import Company
@@ -17,9 +19,17 @@ def index(request):
     return render(request, 'Site/index.html')
 
 def signUp(request):
+    form = UserCreationForm()
     if request.method == 'POST':
-        return 1
-    return render(request, 'Site/sign-up.html')
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('Site:index')
+    return render(request, 'Site/sign-up.html', {"form": form})
 
 
 def company(request, symbol, filter='relevancy', pageNb=1):
