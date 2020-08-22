@@ -12,21 +12,19 @@
     <body>
         <!-- default navbar -->
         {% block navbar %}
-        <!-- <div class="navbar-container"> -->
             <div class="navbar">
                 <div class="navbar-options-container">
-                    <a href=""><h1 class="navbar-title">TradingNews</h1></a>
+                    <a href="{% url 'Site:index' %}"><h1 class="navbar-title">TradingNews</h1></a>
                     <a href="" class="navbar-options-element">watchlist</a>
                 </div>
                 <div class="navbar-search-field-container">
                     <input type="text" class="navbar-search-field" placeholder="Search...">
                 </div>
                 <div>
-                    <a class="sign-up-button">Sign up</a>
+                    <a href="{% url 'Site:sign-up' %}" class="sign-up-button">Sign up</a>
                     <a class="login-button">Login</a>
                 </div>
             </div>
-        <!-- </div> -->
         {% endblock %}
 
         <!-- content -->

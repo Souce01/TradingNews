@@ -16,6 +16,11 @@ validFilter = ['popularity', 'relevancy', 'publishedAt']
 def index(request):
     return render(request, 'Site/index.html')
 
+def signUp(request):
+    if request.method == 'POST':
+        return 1
+    return render(request, 'Site/sign-up.html')
+
 
 def company(request, symbol, filter='relevancy', pageNb=1):
     newsapi = NewsApiClient(api_key=NewsApi_Key)
