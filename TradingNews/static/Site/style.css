@@ -37,11 +37,11 @@ a{
   font-size: large;
 }
 
-.navbar-search-field-container{
+#navbar-search-field-container{
   padding: 5px;
 }
 
-.navbar-search-field{
+#navbar-search-field{
   width: 391px;
   height: 25px;
   background-color: #14110F;
