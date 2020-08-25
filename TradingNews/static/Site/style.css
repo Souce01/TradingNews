@@ -15,10 +15,12 @@ a{
   padding: 0px 8vw;
   height: 52px;
   background-color: #343434;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
+  -webkit-box-shadow: 0px 3px 14px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 3px 14px 1px rgba(0,0,0,0.75);
+  box-shadow: 0px 3px 14px 1px rgba(0,0,0,0.75);
 }
 
 .navbar-options-container{
@@ -50,7 +52,7 @@ a{
 
 .sign-up-button, .login-button{
   padding: 8px;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 .sign-up-button{
