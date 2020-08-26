@@ -73,19 +73,20 @@ a{
 .col-1{
 width: 950px;
 min-width: 750px;
-
 }
 
 .watchlist-container{
   margin-right: 30px;
 }
 
-.article-container{
+.profile-container{
+  display: flex;
+  flex-direction: row;
 }
 
 .filter{
   display: flex;
-  padding: 8px 13px;
+  padding: 8px;
   align-items: center;
 }
 
@@ -98,7 +99,7 @@ min-width: 750px;
   border-radius: 4px;
 }
 
-.filter-element:hover{
+.filter-element:hover, .current-filter{
   background-color: #4d4d4d;
 }
 

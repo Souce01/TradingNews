@@ -2,7 +2,7 @@
 {% block article %}
     <!-- FILTERS -->
     <div class="filter">
-        <a href="{% url 'Site:company-filter-page' company.Symbol 'relevancy' 1 %}" class="filter-element">
+        <a href="{% url 'Site:company-filter-page' company.Symbol 'relevancy' 1 %}" class="filter-element {{ filter|currentFilter:'relevancy' }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="23" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#e2dddb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z"/>
                 <path d="M3 12h1M12 3v1M20 12h1M5.6 5.6l.7 .7M18.4 5.6l-.7 .7" />
@@ -11,7 +11,7 @@
             </svg>
             <div>relevant</div>
         </a>
-        <a href="{% url 'Site:company-filter-page' company.Symbol 'popularity' 1 %}" class="filter-element">
+        <a href="{% url 'Site:company-filter-page' company.Symbol 'popularity' 1 %}" class="filter-element {{ filter|currentFilter:'popularity' }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="23" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#e2dddb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z"/>
                 <circle cx="12" cy="9" r="6" />
@@ -20,7 +20,7 @@
             </svg>
             <div>popular</div>
         </a>
-        <a href="{% url 'Site:company-filter-page' company.Symbol 'publishedAt' 1 %}" class="filter-element">
+        <a href="{% url 'Site:company-filter-page' company.Symbol 'publishedAt' 1 %}" class="filter-element {{ filter|currentFilter:'publishedAt' }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="23" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#e2dddb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z"/>
                 <path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" />
