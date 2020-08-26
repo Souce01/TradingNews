@@ -70,13 +70,17 @@ a{
   justify-content: center;
 }
 
+.col-1{
+width: 950px;
+min-width: 750px;
+
+}
+
 .watchlist-container{
   margin-right: 30px;
 }
 
 .article-container{
-  width: 950px;
-  min-width: 750px;
 }
 
 .filter{

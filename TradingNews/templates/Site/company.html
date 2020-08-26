@@ -5,7 +5,11 @@
 
 {% block content %}
     <div class="content">
-        {% include 'Site/article.html' %}
-        <div class="watchlist-container"></div>
+        <div class="col-1">
+            {% include 'Site/article.html' %}
+        </div>
+        <div class="col-2">
+            <div class="watchlist-container"></div>
+        </div>
     </div>
 {% endblock %}
