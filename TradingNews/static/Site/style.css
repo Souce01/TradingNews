@@ -71,8 +71,8 @@ a{
 }
 
 .col-1{
-width: 950px;
-min-width: 750px;
+  width: 950px;
+  min-width: 750px;
 }
 
 .watchlist-container{
@@ -122,6 +122,10 @@ min-width: 750px;
   border-bottom: 1px solid #7F7B82;
 }
 
+.profile-info-element:last-child{
+  border-bottom: none;
+}
+
 .profile-graph{
   width: 50%;
 }
@@ -149,6 +153,10 @@ min-width: 750px;
   padding: 0px 3px;
 }
 
+.article-container:last-child{
+  border-bottom: none;
+}
+
 .article{
     display: flex;
     flex-direction: row;
@@ -157,16 +165,16 @@ min-width: 750px;
     border-bottom: 1px solid #343434;
 }
 
+.article:last-child{
+  border-bottom: none;
+}
+
 .article-img{
   margin-right: 15px;
   width: 200px;
   height: auto;
   max-height: 150px;
   object-fit: contain;
-}
-
-.article-content{
-  /* asd;flkj */
 }
 
 .article-published{

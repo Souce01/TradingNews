@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}{{ company.Symbol }}{% endblock %}
 
@@ -21,22 +22,46 @@
                         <div class="profile-info">
                             <div class="profile-info-col">
                                 <div class="profile-info-element">
-                                    <div>market cap</div>
-                                    <div>11 million</div>
+                                    <div>Previous close</div>
+                                    <div></div>
                                 </div>
                                 <div class="profile-info-element">
-                                    <div>market cap</div>
-                                    <div>11 million</div>
+                                    <div>Open</div>
+                                    <div></div>
+                                </div>
+                                <div class="profile-info-element">
+                                    <div>Day's range</div>
+                                    <div></div>
+                                </div>
+                                <div class="profile-info-element">
+                                    <div>52 week range</div>
+                                    <div>{{ company.52WeekLow }} - {{ company.52WeekHigh }}</div>
+                                </div>
+                                <div class="profile-info-element">
+                                    <div>Dividend Yield</div>
+                                    <div>{{ company.DividendYield|percentage }}</div>
                                 </div>
                             </div>
                             <div class="profile-info-col">
                                 <div class="profile-info-element">
-                                    <div>market cap</div>
-                                    <div>11 million</div>
+                                    <div>Market cap</div>
+                                    <div>{{ company.MarketCapitalization }}</div>
                                 </div>
                                 <div class="profile-info-element">
-                                    <div>market cap</div>
-                                    <div>11 million</div>
+                                    <div>Volume</div>
+                                    <div></div>
+                                </div>
+                                <div class="profile-info-element">
+                                    <div>PE Ratio</div>
+                                    <div>{{ company.PERatio }}</div>
+                                </div>
+                                <div class="profile-info-element">
+                                    <div>Forward PE</div>
+                                    <div>{{ company.ForwardPE }}</div>
+                                </div>
+                                <div class="profile-info-element">
+                                    <div>EPS</div>
+                                    <div>{{ company.EPS }}</div>
                                 </div>
                             </div>
                         </div>
