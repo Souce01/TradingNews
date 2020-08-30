@@ -81,7 +81,21 @@ min-width: 750px;
 
 .profile-container{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+.profile-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-info{
+
+}
+
+.profile-graph{
+  
 }
 
 .filter{

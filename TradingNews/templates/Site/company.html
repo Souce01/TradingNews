@@ -8,7 +8,20 @@
         <div class="col-1">
             <!-- company profile -->
             <div class="profile-container">
-                
+                <div class="profile-row">
+                    <div>
+                        <div>{{ company.Name }}</div>
+                        <div>{{ company.Symbol }} &#8226 {{ company.Exchange }}</div>
+                    </div>
+                    <div id="follow-button">follow</div>
+                </div>
+                <div class="profile-row">
+                    <div class="profile-info">
+
+                    </div>
+                    <div class="profile-graph">
+                    </div>
+                </div>
             </div>
             {% include 'Site/article.html' %}
         </div>
