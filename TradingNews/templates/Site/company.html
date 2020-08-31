@@ -18,24 +18,31 @@
                 </div>
                 <div class="profile-content-container">
                     <div class="profile-info-container">
-                        <div class="profile-price">120$</div>
+                        <div class="profile-price-container">
+                            <div class="profile-price">{{ endPoint|get:"05. price"|decimal:3 }}</div>
+                            {% if endPoint|get:"09. change"|first == '-' %}
+                                <div class="profile-price-change red">{{ endPoint|get:"09. change" }} ({{ endPoint|get:"10. change percent" }})</div>
+                            {% else %}
+                                <div class="profile-price-change green">+{{ endPoint|get:"09. change" }} ({{ endPoint|get:"10. change percent" }})</div>
+                            {% endif %}
+                        </div>
                         <div class="profile-info">
                             <div class="profile-info-col">
                                 <div class="profile-info-element">
                                     <div>Previous close</div>
-                                    <div></div>
+                                    <div>{{ endPoint|get:"08. previous close"|decimal }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>Open</div>
-                                    <div></div>
+                                    <div>{{ endPoint|get:"02. open"|decimal }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>Day's range</div>
-                                    <div></div>
+                                    <div>{{ endPoint|get:"04. low"|decimal }} - {{ endPoint|get:"03. high"|decimal }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>52 week range</div>
-                                    <div>{{ company.52WeekLow }} - {{ company.52WeekHigh }}</div>
+                                    <div>{{ company.52WeekLow|decimal }} - {{ company.52WeekHigh|decimal }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>Dividend Yield</div>
@@ -45,23 +52,23 @@
                             <div class="profile-info-col">
                                 <div class="profile-info-element">
                                     <div>Market cap</div>
-                                    <div>{{ company.MarketCapitalization }}</div>
+                                    <div>{{ company.MarketCapitalization|commas }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>Volume</div>
-                                    <div></div>
+                                    <div>{{ endPoint|get:"06. volume"|commas }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>PE Ratio</div>
-                                    <div>{{ company.PERatio }}</div>
+                                    <div>{{ company.PERatio|decimal }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>Forward PE</div>
-                                    <div>{{ company.ForwardPE }}</div>
+                                    <div>{{ company.ForwardPE|decimal }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>EPS</div>
-                                    <div>{{ company.EPS }}</div>
+                                    <div>{{ company.EPS|decimal }}</div>
                                 </div>
                             </div>
                         </div>

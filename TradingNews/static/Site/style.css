@@ -82,6 +82,9 @@ a{
 .profile-container{
   display: flex;
   flex-direction: column;
+  padding: 10px 0px;
+  margin: 5px 0px;
+  border-bottom: 2px solid white;
 }
 
 .profile-header-container{
@@ -102,6 +105,30 @@ a{
   flex-direction: column;
 }
 
+.profile-price-container{
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin: 10px 0px 3px 0px;
+}
+
+.profile-price{
+  font-size: 30px;
+}
+
+.profile-price-change{
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.green{
+  color: green;
+}
+
+.red{
+  color: red;
+}
+
 .profile-info{
   display: flex;
 }
@@ -115,10 +142,11 @@ a{
 }
 
 .profile-info-element{
+  font-size: 14px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 7px 0px;
+  padding: 9px 0px;
   border-bottom: 1px solid #7F7B82;
 }
 

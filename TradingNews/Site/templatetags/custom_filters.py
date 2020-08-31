@@ -19,3 +19,21 @@ def percentage(value):
 def currentFilter(value, arg):
     if value == arg:
         return 'current-filter'
+
+# get value of key in json data
+@register.filter
+def get(mapping, key):
+  return mapping.get(key, '')
+
+# input: string, int
+# limits value to decimal places of argument
+@register.filter
+def decimal(value, dec=2):
+  return f"{float(value):.{dec}f}"
+
+# input: string
+# output: string
+# format the string to add commas for every thousand
+@register.filter
+def commas(value):
+  return f"{int(value):,}"

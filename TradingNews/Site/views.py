@@ -40,6 +40,10 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     company = json.load(data)
     data.close()
 
+    data = open('C:/Users/alexandre\Desktop\project\TradingNews\TradingNews\Site/testingEndpoint.json')
+    endPoint = json.load(data)
+    data.close()
+
     # restricted to 5 api calls per minute and 500 per day. So for tesing sake I'll use a json file for development
     """
     resp = requests.get(
@@ -59,4 +63,4 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     articles = newsapi.get_everything(
         q="{0} AND {1}".format(company['Name'], company['Symbol']), language='en', sort_by=filter, page=pageNb)
 
-    return render(request, 'Site/company.html', { 'company': company, 'articles': articles, 'page': pageNb, 'filter': filter})
+    return render(request, 'Site/company.html', { 'company': company, 'endPoint': endPoint['Global Quote'], 'articles': articles, 'page': pageNb, 'filter': filter})
