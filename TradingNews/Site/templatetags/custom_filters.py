@@ -26,9 +26,10 @@ def get(mapping, key):
   return mapping.get(key, '')
 
 # input: string, int
-# limits value to decimal places of argument
+# output: string
+# limits decimal places of argument
 @register.filter
-def decimal(value, dec=2):
+def decimalLimit(value, dec=2):
   return f"{float(value):.{dec}f}"
 
 # input: string

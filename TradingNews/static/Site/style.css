@@ -84,13 +84,21 @@ a{
   flex-direction: column;
   padding: 10px 0px;
   margin: 5px 0px;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid #7F7B82;
 }
 
 .profile-header-container{
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.profile-header div:nth-child(1) {
+  font-size: 20px;
+}
+
+.profile-header div:nth-child(2){
+  font-size: 13px;
 }
 
 .profile-content-container{
@@ -147,7 +155,7 @@ a{
   flex-direction: row;
   justify-content: space-between;
   padding: 9px 0px;
-  border-bottom: 1px solid #7F7B82;
+  border-bottom: 1px solid #343434;
 }
 
 .profile-info-element div:nth-child(2){
