@@ -21,9 +21,9 @@
                         <div class="profile-price-container">
                             <div class="profile-price">{{ endPoint|get:"05. price"|decimal:3 }}</div>
                             {% if endPoint|get:"09. change"|first == '-' %}
-                                <div class="profile-price-change red">{{ endPoint|get:"09. change" }} ({{ endPoint|get:"10. change percent" }})</div>
+                                <div class="profile-price-change red">{{ endPoint|get:"09. change"|decimal }} ({{ endPoint|get:"10. change percent" }})</div>
                             {% else %}
-                                <div class="profile-price-change green">+{{ endPoint|get:"09. change" }} ({{ endPoint|get:"10. change percent" }})</div>
+                                <div class="profile-price-change green">+{{ endPoint|get:"09. change"|decimal }} ({{ endPoint|get:"10. change percent" }})</div>
                             {% endif %}
                         </div>
                         <div class="profile-info">
