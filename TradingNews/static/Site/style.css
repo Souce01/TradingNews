@@ -122,11 +122,11 @@ a{
 }
 
 .green{
-  color: green;
+  color: #00cc5c;
 }
 
 .red{
-  color: red;
+  color: #f0162f;
 }
 
 .profile-info{
@@ -148,6 +148,10 @@ a{
   justify-content: space-between;
   padding: 9px 0px;
   border-bottom: 1px solid #7F7B82;
+}
+
+.profile-info-element div:nth-child(2){
+  font-weight: bold;
 }
 
 .profile-info-element:last-child{
