@@ -1,6 +1,27 @@
+
+initiateChart();
+
+async function initiateChart(){
+  const ctx = document.getElementById('chart').getContext('2d');
+  const myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3]
+      }]
+    }
+  });
+}
+
+async function getChartData(){
+
+}
+
 // removes images that didn't load
 $(".article-img")
-  .on('error', function(e) {
+  .on("error", function(e) {
     $(this).remove();
     e.preventDefault();
   })
