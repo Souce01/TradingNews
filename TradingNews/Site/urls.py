@@ -7,5 +7,6 @@ urlpatterns = [
     path('signup', views.signUp, name='sign-up'),
     path('company/<str:symbol>', views.company, name='company'),
     path('company/<str:symbol>/<str:filter>', views.company, name='company-filter'),
-    path('company/<str:symbol>/<str:filter>/<int:pageNb>', views.company, name='company-filter-page')
+    path('company/<str:symbol>/<str:filter>/<int:pageNb>', views.company, name='company-filter-page'),
+    path('api/chartData/<str:symbol>/<str:time>', views.chartData, name='api-chartData')
 ]

@@ -1,7 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.contrib import messages
 from .models import Company
 from newsapi import NewsApiClient
@@ -51,9 +51,12 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     )
     company = resp.json()
 
+
     # if the request is invalid or the json is empty because the symbol is invalid raise 404
     if resp.status_code != 200 or len(company) == 0:
         raise Http404("error")
+
+    
     """
 
     # if the filter in the request is not in the valid list raise 404 
@@ -64,3 +67,25 @@ def company(request, symbol, filter='relevancy', pageNb=1):
         q="{0} AND {1}".format(company['Name'], company['Symbol']), language='en', sort_by=filter, page=pageNb)
 
     return render(request, 'Site/company.html', { 'company': company, 'endPoint': endPoint['Global Quote'], 'articles': articles, 'page': pageNb, 'filter': filter})
+
+def chartData(request, symbol, time):
+    if request.method == 'GET':
+        time = time.upper()
+        symbol = symbol.upper()
+        validTime = ['DAILY', 'WEEKLY', 'MONTHLY']
+
+        # will return an error if the time interval is not in the valid time interval list
+        if not any(element in time for element in validTime):
+            return JsonResponse({'status': 'false', 'message': 'Invalid time'}, status=400, safe=False)
+
+        resp = requests.get(
+            f'https://www.alphavantage.co/query?function=TIME_SERIES_{time}&symbol={symbol}&apikey={AlphaVantage_Key}'
+        )
+        data = resp.json()
+
+        # if the length of the api response is equal to one it means that there is only an error message
+        # NewsApi does not respond with a 400 status when there is a bad request
+        if resp.status_code != 200 or len(data) == 1:
+            return JsonResponse({'status':'false', 'message':'Invalid symbol'}, status=400, safe=False)
+
+        return JsonResponse(data, status=200, safe=False)
