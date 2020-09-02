@@ -16,7 +16,7 @@ async function initiateChart(){
 }
 
 async function getChartData(){
-
+  
 }
 
 // removes images that didn't load
