@@ -60,7 +60,7 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     """
 
     # if the filter in the request is not in the valid list raise 404 
-    if not any(element in filter for element in validFilter):
+    if filter not in validFilter:
         raise Http404("error")
     
     articles = newsapi.get_everything(
@@ -75,7 +75,7 @@ def chartData(request, symbol, time):
         validTime = ['DAILY', 'WEEKLY', 'MONTHLY']
 
         # will return an error if the time interval is not in the valid time interval list
-        if not any(element in time for element in validTime):
+        if time not in validTime:
             return JsonResponse({'status': 'false', 'message': 'Invalid time'}, status=400, safe=False)
 
         resp = requests.get(
