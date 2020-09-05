@@ -12,7 +12,7 @@ async function initiateChart(){
         label: 'price',
         data: data[1],
         pointRadius: 2,
-        backgroundColor: function(context){
+        backgroundColor: function(){
           if (data[1][data[1].length - 1] < data[1][0]) {
             return 'rgba(240, 22, 47, 0.6)';
           } else {
@@ -47,6 +47,7 @@ async function getChartData(symbol, interval){
     price.push(parsedData[key]['4. close']);
   };
 
+  // reverse before return to sort from oldest to newest
   return [labels.reverse(), price.reverse()];
 }
 
