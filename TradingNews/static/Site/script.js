@@ -2,15 +2,23 @@
 initiateChart();
 async function initiateChart(){
   const data = await getChartData('IBM', '15min');
-  console.log(data[0]);
   const ctx = document.getElementById('chart').getContext('2d');
+
   const myChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: data[0],
       datasets: [{
         label: 'price',
-        data: data[1]
+        data: data[1],
+        pointRadius: 2,
+        backgroundColor: function(context){
+          if (data[1][data[1].length - 1] < data[1][0]) {
+            return 'rgba(240, 22, 47, 0.6)';
+          } else {
+            return 'rgba(0, 204, 92, 0.6)';
+          }
+        }
       }]
     },
     options: {
@@ -36,10 +44,10 @@ async function getChartData(symbol, interval){
   const price = [];
 
   for (const key of labels) {
-    price.push(parsedData[key]['1. open']);
+    price.push(parsedData[key]['4. close']);
   };
 
-  return [labels, price];
+  return [labels.reverse(), price.reverse()];
 }
 
 
