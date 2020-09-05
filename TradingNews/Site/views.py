@@ -70,16 +70,15 @@ def company(request, symbol, filter='relevancy', pageNb=1):
 
 def chartData(request, symbol, time):
     if request.method == 'GET':
-        time = time.upper()
         symbol = symbol.upper()
-        validTime = ['DAILY', 'WEEKLY', 'MONTHLY']
+        validTime = ['1min', '5min', '15min', '30min', '60min']
 
         # will return an error if the time interval is not in the valid time interval list
         if time not in validTime:
             return JsonResponse({'status': 'false', 'message': 'Invalid time'}, status=400, safe=False)
 
         resp = requests.get(
-            f'https://www.alphavantage.co/query?function=TIME_SERIES_{time}&symbol={symbol}&apikey={AlphaVantage_Key}'
+            f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={time}&apikey={AlphaVantage_Key}'
         )
         data = resp.json()
 

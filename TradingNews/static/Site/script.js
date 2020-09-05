@@ -1,23 +1,47 @@
 
 initiateChart();
-
 async function initiateChart(){
+  const data = await getChartData('IBM', '15min');
+  console.log(data[0]);
   const ctx = document.getElementById('chart').getContext('2d');
   const myChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: data[0],
       datasets: [{
         label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3]
+        data: data[1]
       }]
+    },
+    options: {
+      multiTooltipTemplate: "<%=datasetLabel%> : <%= value %>",
+      plugins: {
+        datalabels: {
+          display: function (context) {
+            return context.active;
+          }
+        }
+      }
     }
   });
 }
 
-async function getChartData(){
-  
+async function getChartData(symbol, interval){
+  const response = await fetch(`http://127.0.0.1:8000/api/chartData/${symbol}/${interval}`)
+  const data = await response.json();
+  const parsedData = data[`Time Series (${interval})`];
+  const labels = Object.keys(parsedData);
+  const price = [];
+
+  for (const key of Object.keys(parsedData)) {
+    price.push(parsedData[key]['1. open']);
+  };
+
+  return [labels, price];
 }
+
+
+/* Event handlers */
 
 // removes images that didn't load
 $(".article-img")
