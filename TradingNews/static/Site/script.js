@@ -9,18 +9,20 @@ async function initiateChart(){
     data: {
       labels: data[0],
       datasets: [{
-        label: '# of Votes',
+        label: 'price',
         data: data[1]
       }]
     },
     options: {
-      multiTooltipTemplate: "<%=datasetLabel%> : <%= value %>",
-      plugins: {
-        datalabels: {
-          display: function (context) {
-            return context.active;
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            display: false
           }
-        }
+        }]
       }
     }
   });
@@ -33,7 +35,7 @@ async function getChartData(symbol, interval){
   const labels = Object.keys(parsedData);
   const price = [];
 
-  for (const key of Object.keys(parsedData)) {
+  for (const key of labels) {
     price.push(parsedData[key]['1. open']);
   };
 
