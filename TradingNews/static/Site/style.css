@@ -11,6 +11,8 @@ a{
     color: #e2dddb;
 }
 
+
+/* NAVBAR CSS */
 .navbar{
   padding: 0px 8vw;
   height: 52px;
@@ -64,6 +66,8 @@ a{
   border: 1px solid #B0B0B0;
 }
 
+
+/* CONTENT CSS */
 .content{
   display: flex;
   flex-direction: row;
@@ -79,6 +83,8 @@ a{
   margin-right: 30px;
 }
 
+
+/* PROFILE CSS */
 .profile-container{
   display: flex;
   flex-direction: column;
@@ -105,11 +111,12 @@ a{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0px 0px 0px;
+  margin: 15px 0px 0px 0px;
 }
 
 .profile-info-container{
   width: 50%;
+  height: 256px;
   display: flex;
   flex-direction: column;
 }
@@ -180,6 +187,7 @@ a{
 
 .profile-chart-button{
   margin-left: 15px;
+  cursor: pointer;
 }
 
 .profile-chart-button:first-of-type{
@@ -191,6 +199,8 @@ a{
   height: auto;
 }
 
+
+/* FILTER CSS */
 .filter{
   display: flex;
   padding: 8px;
@@ -214,6 +224,8 @@ a{
   padding: 0px 3px;
 }
 
+
+/* ARTICLES CSS */
 .article-container:last-child{
   border-bottom: none;
 }

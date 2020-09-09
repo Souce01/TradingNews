@@ -59,19 +59,23 @@ function updateChart(chart, interval){
 }
 
 async function getChartData(interval) {
-    const symbol = getSymbol();
-    const response = await fetch(`http://127.0.0.1:8000/api/chartData/${symbol}/${interval}`)
-    const data = await response.json();
-    const parsedData = data[`Time Series (${interval})`];
-    const labels = Object.keys(parsedData);
-    let price = [];
+    try{
+        const symbol = getSymbol();
+        const response = await fetch(`http://127.0.0.1:8000/api/chartData/${symbol}/${interval}`)
+        const data = await response.json();
+        const parsedData = data[`Time Series (${interval})`];
+        const labels = Object.keys(parsedData);
+        let price = [];
 
-    for (const key of labels) {
-        price.push(parsedData[key]['4. close']);
-    };
+        for (const key of labels) {
+            price.push(parsedData[key]['4. close']);
+        };
 
-    // reverse before return to sort from oldest to newest
-    return [labels.reverse(), price.reverse()];
+        // reverse before return to sort from oldest to newest
+        return [labels.reverse(), price.reverse()];
+    } catch(err){
+        console.log(err);
+    }
 }
 
 // returns the symbol of the current company page
