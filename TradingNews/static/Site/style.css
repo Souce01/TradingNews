@@ -188,10 +188,15 @@ a{
 .profile-chart-button{
   margin-left: 15px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .profile-chart-button:first-of-type{
   margin-left: 0px;
+}
+
+.profile-chart-button:hover{
+  color: #4193c6;
 }
 
 .profile-chart{

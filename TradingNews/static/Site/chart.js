@@ -89,19 +89,58 @@ function getSymbol() {
 $("#profile-chart-button-5m")
     .on("click", function (e) {
         updateChart(myChart, '5min');
+
+        // removes previous color of all buttons
+        $(".profile-chart-button").css("color", "white");
+        
+        // Changes color of current button to show that it's selected
+        $(this).css("color", "#4193c6");
+        e.preventDefault();
     });
 
 $("#profile-chart-button-15m")
     .on("click", function (e) {
         updateChart(myChart, '15min');
+
+        // removes previous color of all buttons
+        $(".profile-chart-button").css("color", "white");
+
+        // Changes color of current button to show that it's selected
+        $(this).css("color", "#4193c6");
+        e.preventDefault();
     });
 
 $("#profile-chart-button-30m")
     .on("click", function (e) {
         updateChart(myChart, '30min');
+
+        // removes previous color of all buttons
+        $(".profile-chart-button").css("color", "white");
+
+        // Changes color of current button to show that it's selected
+        $(this).css("color", "#4193c6");
+        e.preventDefault();
     });
 
 $("#profile-chart-button-60m")
     .on("click", function (e) {
         updateChart(myChart, '60min');
+
+        // removes previous color of all buttons
+        $(".profile-chart-button").css("color", "white");
+
+        // Changes color of current button to show that it's selected
+        $(this).css("color", "#4193c6");
+        e.preventDefault();
     });
+
+/*
+$(".profile-chart-button")
+    .hover(function (e) {
+        $(this).css("color", "#4193c6");
+        e.preventDefault();
+    }, function (e) {
+        $(this).css("color", "white");
+        e.preventDefault();
+    });
+*/
