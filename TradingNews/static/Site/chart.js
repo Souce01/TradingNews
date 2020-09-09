@@ -1,6 +1,6 @@
 const ctx = document.getElementById('chart').getContext('2d');
 
-// creating the chart with dummy data that won't be displayed
+// creating the chart with dummy data
 let myChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -27,8 +27,37 @@ let myChart = new Chart(ctx, {
 });
 
 // initiate the chart with 5min interval data
-updateChart(myChart, '5min');
+updateChart(myChart, '5min', $("#profile-chart-button-5m"));
 
+
+/* CHART FUNCTIONS */
+
+// input: 
+// output: 
+// description: 
+async function getChartData(interval) {
+    try {
+        const symbol = getSymbol();
+        const response = await fetch(`http://127.0.0.1:8000/api/chartData/${symbol}/${interval}`)
+        const data = await response.json();
+        const parsedData = data[`Time Series (${interval})`];
+        const labels = Object.keys(parsedData);
+        let price = [];
+
+        for (const key of labels) {
+            price.push(parsedData[key]['4. close']);
+        };
+
+        // reverse before return to sort from oldest to newest
+        return [labels.reverse(), price.reverse()];
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// input: 
+// output: 
+// description: 
 function addChartData(chart, data){
     chart.data.labels = data[0];
     chart.data.datasets[0].data = data[1];
@@ -43,6 +72,9 @@ function addChartData(chart, data){
     chart.update();
 }
 
+// input: 
+// output: 
+// description: 
 function removeChartData(chart){
     chart.data.labels.pop();
     chart.data.datasets.forEach((dataset) => {
@@ -51,96 +83,52 @@ function removeChartData(chart){
     chart.update();
 }
 
-function updateChart(chart, interval){
+// input: 
+// output: 
+// description: 
+function updateChart(chart, interval, element){
     getChartData(interval).then(data =>{
         removeChartData(chart);
         addChartData(chart, data);
     })
+
+    // changes color of the selected interval
+    // removes previous color of all buttons
+    $(".profile-chart-button").removeClass("profile-chart-button-active");
+
+    // Changes color of current button to show that it's selected
+    element.addClass("profile-chart-button-active");
 }
 
-async function getChartData(interval) {
-    try{
-        const symbol = getSymbol();
-        const response = await fetch(`http://127.0.0.1:8000/api/chartData/${symbol}/${interval}`)
-        const data = await response.json();
-        const parsedData = data[`Time Series (${interval})`];
-        const labels = Object.keys(parsedData);
-        let price = [];
-
-        for (const key of labels) {
-            price.push(parsedData[key]['4. close']);
-        };
-
-        // reverse before return to sort from oldest to newest
-        return [labels.reverse(), price.reverse()];
-    } catch(err){
-        console.log(err);
-    }
-}
-
-// returns the symbol of the current company page
+// input: 
+// output: 
+// description: 
 function getSymbol() {
     let url = window.location.pathname.split("/");
     return url[2];
 }
 
-
-/* chart handlers */
+/* CHART HANDLERS */
 $("#profile-chart-button-5m")
     .on("click", function (e) {
-        updateChart(myChart, '5min');
-
-        // removes previous color of all buttons
-        $(".profile-chart-button").css("color", "white");
-        
-        // Changes color of current button to show that it's selected
-        $(this).css("color", "#4193c6");
+        updateChart(myChart, '5min', $(this));
         e.preventDefault();
     });
 
 $("#profile-chart-button-15m")
     .on("click", function (e) {
-        updateChart(myChart, '15min');
-
-        // removes previous color of all buttons
-        $(".profile-chart-button").css("color", "white");
-
-        // Changes color of current button to show that it's selected
-        $(this).css("color", "#4193c6");
+        updateChart(myChart, '15min', $(this));
         e.preventDefault();
     });
 
 $("#profile-chart-button-30m")
     .on("click", function (e) {
-        updateChart(myChart, '30min');
-
-        // removes previous color of all buttons
-        $(".profile-chart-button").css("color", "white");
-
-        // Changes color of current button to show that it's selected
-        $(this).css("color", "#4193c6");
+        updateChart(myChart, '30min', $(this));
         e.preventDefault();
     });
 
 $("#profile-chart-button-60m")
     .on("click", function (e) {
-        updateChart(myChart, '60min');
-
-        // removes previous color of all buttons
-        $(".profile-chart-button").css("color", "white");
-
-        // Changes color of current button to show that it's selected
-        $(this).css("color", "#4193c6");
+        updateChart(myChart, '60min', $(this));
         e.preventDefault();
     });
-
-/*
-$(".profile-chart-button")
-    .hover(function (e) {
-        $(this).css("color", "#4193c6");
-        e.preventDefault();
-    }, function (e) {
-        $(this).css("color", "white");
-        e.preventDefault();
-    });
-*/
