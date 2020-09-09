@@ -172,11 +172,18 @@ a{
 }
 
 .profile-chart-button-container{
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 5px;
   margin-bottom: 5px;
 }
 
 .profile-chart-button{
-  margin-left: 5px;
+  margin-left: 15px;
+}
+
+.profile-chart-button:first-of-type{
+  margin-left: 0px;
 }
 
 .profile-chart{

@@ -3,7 +3,7 @@ $(".article-img")
   .on("error", function (e) {
     $(this).remove();
     e.preventDefault();
-  })
+  });
 
 // Changes the color an article's title on hover
 $(".article")
@@ -13,10 +13,12 @@ $(".article")
   }, function (e) {
     $(this).find(".article-title").css("color", "white");
     e.preventDefault();
-  })
+  });
 
+// ! has to be made
 // makes an api call to get search endpoint
 $("#search-field").change(function (e) {
 
   e.preventDefault();
 });
+
