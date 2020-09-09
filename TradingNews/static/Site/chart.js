@@ -1,4 +1,6 @@
 const ctx = document.getElementById('chart').getContext('2d');
+
+// creating the chart with dummy data that won't be displayed
 let myChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -24,33 +26,20 @@ let myChart = new Chart(ctx, {
     }
 });
 
-console.log(myChart.data.labels);
-
-function initiateChart(chart, interval){
-    console.log('inside initiate data');
-    getChartData(interval).then(data => {
-        console.log('inside initiate data');
-        console.log(chart.data.labels);
-        removeChartData(chart);
-        console.log(chart.data.labels);
-        addChartData(chart, data);
-        console.log(chart.data.labels);
-    })
-    chart.update();
-}
+// initiate the chart with 5min interval data
+updateChart(myChart, '5min');
 
 function addChartData(chart, data){
-    chart.data.labels.push(data[0]);
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data[1]);
-        dataset.backgroundColor = function () {
-            if (data[1][data[1].length - 1] < data[1][0]) {
-                return 'rgba(240, 22, 47, 0.6)';
-            } else {
-                return 'rgba(0, 204, 92, 0.6)';
-            }
+    chart.data.labels = data[0];
+    chart.data.datasets[0].data = data[1];
+    chart.data.datasets[0].backgroundColor = function () {
+        if (data[1][data[1].length - 1] < data[1][0]) {
+            return 'rgba(240, 22, 47, 0.6)';
+        } else {
+            return 'rgba(0, 204, 92, 0.6)';
         }
-    });
+    }
+    
     chart.update();
 }
 
