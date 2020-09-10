@@ -32,9 +32,9 @@ updateChart(myChart, '5min', $("#profile-chart-button-5m"));
 
 /* CHART FUNCTIONS */
 
-// input: 
-// output: 
-// description: 
+// input: string
+// output: array
+// description: fetch chart labels and chart data from the back-end
 async function getChartData(interval) {
     try {
         const symbol = getSymbol();
@@ -55,12 +55,15 @@ async function getChartData(interval) {
     }
 }
 
-// input: 
-// output: 
-// description: 
+// input: object, array
+// output: none
+// description: takes the chart objects and add data inside chart
 function addChartData(chart, data){
     chart.data.labels = data[0];
     chart.data.datasets[0].data = data[1];
+
+    // turns the background color red if the last price is lower than the first
+    // otherwise background color is green
     chart.data.datasets[0].backgroundColor = function () {
         if (data[1][data[1].length - 1] < data[1][0]) {
             return 'rgba(240, 22, 47, 0.6)';
@@ -72,9 +75,9 @@ function addChartData(chart, data){
     chart.update();
 }
 
-// input: 
-// output: 
-// description: 
+// input: object
+// output: none
+// description: removes labels and data from the chart object
 function removeChartData(chart){
     chart.data.labels.pop();
     chart.data.datasets.forEach((dataset) => {
@@ -83,9 +86,11 @@ function removeChartData(chart){
     chart.update();
 }
 
-// input: 
-// output: 
+// input: object, string, DOM element
+// output: none
 // description: 
+//  -updates the chart with the data from getChartData
+//  -adds a css class to the button element related to the selected interval
 function updateChart(chart, interval, element){
     getChartData(interval).then(data =>{
         removeChartData(chart);
@@ -100,9 +105,9 @@ function updateChart(chart, interval, element){
     element.addClass("profile-chart-button-active");
 }
 
-// input: 
-// output: 
-// description: 
+// input: none
+// output: string
+// description: get the company symbol of current page
 function getSymbol() {
     let url = window.location.pathname.split("/");
     return url[2];
