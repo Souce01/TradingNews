@@ -116,7 +116,7 @@ a{
 
 .profile-info-container{
   width: 50%;
-  height: 256px;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }

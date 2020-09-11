@@ -68,23 +68,49 @@ def company(request, symbol, filter='relevancy', pageNb=1):
 
     return render(request, 'Site/company.html', { 'company': company, 'endPoint': endPoint['Global Quote'], 'articles': articles, 'page': pageNb, 'filter': filter})
 
-def chartData(request, symbol, time):
+def chartData(request, symbol, interval):
     if request.method == 'GET':
         symbol = symbol.upper()
         validTime = ['1min', '5min', '15min', '30min', '60min']
 
         # will return an error if the time interval is not in the valid time interval list
-        if time not in validTime:
+        if interval not in validTime:
             return JsonResponse({'status': 'false', 'message': 'Invalid time'}, status=400, safe=False)
 
         resp = requests.get(
-            f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={time}&apikey={AlphaVantage_Key}'
+            f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey={AlphaVantage_Key}'
         )
+
+        if resp.status_code != 200:
+            # invalid request error response
+            return JsonResponse({'status':'false', 'message':'bad request'}, status=400, safe=False)
+
         data = resp.json()
 
         # if the length of the api response is equal to one it means that there is only an error message
         # NewsApi does not respond with a 400 status when there is a bad request
-        if resp.status_code != 200 or len(data) == 1:
+        if data.get("Error Message", "") != "":
             return JsonResponse({'status':'false', 'message':'Invalid symbol'}, status=400, safe=False)
 
         return JsonResponse(data, status=200, safe=False)
+
+
+def searchEndpoint(request, keyword):
+    if request.method == 'GET':
+        resp = requests.get(
+            f"https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={keyword}&apikey={AlphaVantage_Key}"
+        )
+
+        if resp.status_code != 200:
+            # invalid request error response
+            return JsonResponse({'status': 'false', 'message': 'bad request'}, status=400, safe=False)
+
+        data = resp.json()
+
+        if data.get("Error Message", "") != "":
+            # invalid keyword response
+            return JsonResponse({'status': 'false', 'message': 'Invalid keyword'}, status=400, safe=False)
+        
+        return JsonResponse(data, status=200, safe=False)
+
+    

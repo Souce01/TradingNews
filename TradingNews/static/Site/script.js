@@ -15,10 +15,11 @@ $(".article")
     e.preventDefault();
   });
 
-// ! has to be made
-// makes an api call to get search endpoint
-$("#search-field").change(function (e) {
-
+// TODO: makes an api call to get search endpoint
+$("#navbar-search-field").change(function (e) {
+  if ($(this).val() != ""){
+    console.log($(this).val());
+  }
   e.preventDefault();
 });
 
