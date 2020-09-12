@@ -19,6 +19,16 @@ $(".article")
 $("#navbar-search-field").on("change input", function (e) {
   if ($(this).val() != ""){
     console.log($(this).val());
+    fetch(`http://127.0.0.1:8000/api/searchEndPoint/${$(this).val()}`)
+      .then(data => {
+        return data.json();
+      })
+      .then(jsonData => {
+        console.log(jsonData);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
   e.preventDefault();
 });
