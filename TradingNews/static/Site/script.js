@@ -15,6 +15,16 @@ $(".article")
     e.preventDefault();
   });
 
+$("#navbar-search-field").focusin(function() {
+  $(this).parent().addClass("search-field-container-show");
+  $(".search-field-content").addClass("active")
+})
+
+$("#navbar-search-field").focusout(function () {
+  $(this).parent().removeClass("search-field-container-show");
+  $(".search-field-content").removeClass("active");
+})
+
 // TODO: makes an api call to get search endpoint
 $("#navbar-search-field").on("change input", function (e) {
   if ($(this).val() != ""){
