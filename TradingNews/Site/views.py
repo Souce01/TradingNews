@@ -64,7 +64,7 @@ def company(request, symbol, filter='relevancy', pageNb=1):
         raise Http404("error")
     
     articles = newsapi.get_everything(
-        q="{0} AND {1}".format(company['Name'], company['Symbol']), language='en', sort_by=filter, page=pageNb)
+        q=f"{company['Name']} AND {company['Symbol']}", language='en', sort_by=filter, page=pageNb)
 
     return render(request, 'Site/company.html', { 'company': company, 'endPoint': endPoint['Global Quote'], 'articles': articles, 'page': pageNb, 'filter': filter})
 
@@ -87,8 +87,6 @@ def chartData(request, symbol, interval):
 
         data = resp.json()
 
-        # if the length of the api response is equal to one it means that there is only an error message
-        # NewsApi does not respond with a 400 status when there is a bad request
         if data.get("Error Message", "") != "":
             return JsonResponse({'status':'false', 'message':'Invalid symbol'}, status=400, safe=False)
 

@@ -16,7 +16,7 @@ $(".article")
   });
 
 // TODO: makes an api call to get search endpoint
-$("#navbar-search-field").change(function (e) {
+$("#navbar-search-field").on("change input", function (e) {
   if ($(this).val() != ""){
     console.log($(this).val());
   }
