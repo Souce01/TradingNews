@@ -39,8 +39,12 @@ a{
   font-size: large;
 }
 
-#navbar-search-field-container{
+.navbar-search-field-container{
   padding: 5px;
+}
+
+.search-field-container-focused{
+  background-color: #00cc5c;
 }
 
 #navbar-search-field{
@@ -49,7 +53,19 @@ a{
   background-color: #14110F;
   color: #CDCDCD;
   padding: 3px 6px;
+  border-radius: 3px;
   border: none;
+}
+
+.search-field-content{
+  position: absolute;
+  width: 391px;
+  padding: 3px 6px;
+
+}
+
+.search-field-content div{
+
 }
 
 .sign-up-button, .login-button{
