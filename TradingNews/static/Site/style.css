@@ -40,7 +40,6 @@ a{
 }
 
 .navbar-search-field-container{
-  padding: 8px;
   border-radius: 3px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -62,6 +61,7 @@ a{
   background-color: #14110F;
   color: #CDCDCD;
   padding: 3px 6px;
+  margin: 8px;
   border-radius: 3px;
   border: none;
 }
@@ -70,12 +70,17 @@ a{
   background-color: #343434;
 }
 
+/* 
+  search-field-content total width (width + padding) 
+  is hard coded relative to navbar-search-container total width
+  TODO need to find a better way
+*/
+
 .search-field-content{
   display: none;
   position: absolute;
   width: 391px;
-  padding: 3px 6px;
-  margin: 5px 8px 0px 8px;
+  padding: 3px 14px;
   border-radius: 3px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
