@@ -15,26 +15,44 @@ $(".article")
     e.preventDefault();
   });
 
-$("#navbar-search-field").focusin(function() {
+$("#navbar-search-field").focus(function() {
   $(this).parent().addClass("search-field-container-show");
-  $(".search-field-content").addClass("active")
-})
+  $("#search-field-content").addClass("active")
+});
 
 $("#navbar-search-field").focusout(function () {
   $(this).parent().removeClass("search-field-container-show");
-  $(".search-field-content").removeClass("active");
-})
+  $("#search-field-content").removeClass("active");
+});
 
 // TODO: makes an api call to get search endpoint
 $("#navbar-search-field").on("change input", function (e) {
   if ($(this).val() != ""){
     console.log($(this).val());
     fetch(`http://127.0.0.1:8000/api/searchEndPoint/${$(this).val()}`)
-      .then(data => {
-        return data.json();
+      .then(resp => {
+        if (!resp.ok) {
+          throw Error(resp.statusText);
+        }
+        return resp;
       })
-      .then(jsonData => {
-        console.log(jsonData);
+      .then(resp => {
+        return resp.json();
+      })
+      .then(data => {
+        let content = $('#search-field-content');
+        let matches = data['bestMatches'];
+        // clears matches
+        content.empty();
+        
+        for (let x of matches){
+          content.append(`
+            <a href="http://127.0.0.1:8000/company/${x['1. symbol']}" class="search-field-content-element">
+              ${x['1. symbol']}
+            </a>
+          `);
+        }
+        console.log(matches);
       })
       .catch(err => {
         console.log(err);

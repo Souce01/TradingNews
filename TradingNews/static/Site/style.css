@@ -76,8 +76,9 @@ a{
   TODO need to find a better way
 */
 
-.search-field-content{
+#search-field-content{
   display: none;
+  z-index: 1;
   position: absolute;
   width: 391px;
   padding: 3px 14px;
@@ -87,11 +88,12 @@ a{
   background-color: #14110F;
 }
 
-.search-field-content.active{
-  display: block;
+#search-field-content.active{
+  display: flex;
+  flex-direction: column;
 }
 
-.search-field-content div{
+.search-field-content-element{
 
 }
 

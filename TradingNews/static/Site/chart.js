@@ -38,8 +38,12 @@ updateChart(myChart, '5min', $("#profile-chart-button-5m"));
 async function getChartData(interval) {
     try {
         const symbol = getSymbol();
-        const response = await fetch(`http://127.0.0.1:8000/api/chartData/${symbol}/${interval}`)
-        const data = await response.json();
+        const resp = await fetch(`http://127.0.0.1:8000/api/chartData/${symbol}/${interval}`);
+
+        // Throws error if response doesn't have 200 status code
+        if (!resp.ok) throw Error(resp.statusText);
+
+        const data = await resp.json();
         const parsedData = data[`Time Series (${interval})`];
         const labels = Object.keys(parsedData);
         let price = [];
