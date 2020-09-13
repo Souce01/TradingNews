@@ -15,13 +15,14 @@ $(".article")
     e.preventDefault();
   });
 
-$("#navbar-search-field").focus(function() {
+$("#navbar-search-field").click(function(e) {
   $(this).parent().addClass("search-field-container-show");
   $("#search-field-content").addClass("active")
+  e.stopPropagation();
 });
 
-$("#navbar-search-field").focusout(function () {
-  $(this).parent().removeClass("search-field-container-show");
+$(document).click(function () {
+  $("#navbar-search-field-container").removeClass("search-field-container-show");
   $("#search-field-content").removeClass("active");
 });
 

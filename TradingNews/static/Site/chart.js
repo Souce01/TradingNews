@@ -41,7 +41,7 @@ async function getChartData(interval) {
         const resp = await fetch(`http://127.0.0.1:8000/api/chartData/${symbol}/${interval}`);
 
         // Throws error if response doesn't have 200 status code
-        if (!resp.ok) throw Error(resp.statusText);
+        if (!resp.ok) throw Error(resp);
 
         const data = await resp.json();
         const parsedData = data[`Time Series (${interval})`];
