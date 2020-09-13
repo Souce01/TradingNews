@@ -40,7 +40,7 @@ a{
 }
 
 .navbar-search-field-container{
-  border-radius: 3px;
+  border-radius: 5px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
@@ -81,7 +81,7 @@ a{
   position: absolute;
   width: 391px;
   padding: 3px 14px;
-  border-radius: 3px;
+  border-radius: 5px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
   background-color: #14110F;
