@@ -81,7 +81,7 @@ a{
   z-index: 1;
   position: absolute;
   width: 391px;
-  padding: 3px 14px;
+  padding: 5px 14px;
   border-radius: 5px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
@@ -94,7 +94,22 @@ a{
 }
 
 .search-field-content-element{
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
 
+.search-field-content-element:hover{
+  background-color: #343434;
+}
+
+.search-element-name{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 250px;
 }
 
 .sign-up-button, .login-button{
