@@ -1,0 +1,79 @@
+===============================================================================
+EXTENSION NAME : linecount
+EXTENSION VERSION : 0.1.7
+-------------------------------------------------------------------------------
+count time : 2020-09-13 22:59:25
+count workspace : c:\Users\alexandre\Desktop\project\TradingNews
+total files : 67
+total code lines : 12137
+total comment lines : 96
+total blank lines : 290
+
+.gitignore, code is 3, comment is 0, blank is 0.
+.VSCodeCounter\details.md, code is 41, comment is 0, blank is 6.
+.VSCodeCounter\results.csv, code is 34, comment is 0, blank is 0.
+.VSCodeCounter\results.md, code is 27, comment is 0, blank is 7.
+.VSCodeCounter\results.txt, code is 66, comment is 0, blank is 3.
+commands.txt, code is 24, comment is 0, blank is 18.
+mysqlclient-1.4.6-cp37-cp37m-win32.whl, it is a binary file.
+Pipfile, code is 12, comment is 0, blank is 3.
+Pipfile.lock, code is 99, comment is 0, blank is 12.
+TradingNews\common\utils\__init__.py, code is 0, comment is 0, blank is 0.
+TradingNews\manage.py, code is 12, comment is 1, blank is 8.
+TradingNews\Site\__init__.py, code is 0, comment is 0, blank is 0.
+TradingNews\Site\__pycache__\__init__.cpython-37.pyc, it is a binary file.
+TradingNews\Site\__pycache__\admin.cpython-37.pyc, it is a binary file.
+TradingNews\Site\__pycache__\models.cpython-37.pyc, it is a binary file.
+TradingNews\Site\__pycache__\urls.cpython-37.pyc, it is a binary file.
+TradingNews\Site\__pycache__\views.cpython-37.pyc, it is a binary file.
+TradingNews\Site\admin.py, code is 1, comment is 1, blank is 1.
+TradingNews\Site\apps.py, code is 3, comment is 0, blank is 2.
+TradingNews\Site\forms.py, code is 2, comment is 0, blank is 2.
+TradingNews\Site\migrations\0001_initial.py, code is 14, comment is 1, blank is 6.
+TradingNews\Site\migrations\0002_auto_20200420_1047.py, code is 36, comment is 1, blank is 5.
+TradingNews\Site\migrations\0003_article_date.py, code is 12, comment is 1, blank is 5.
+TradingNews\Site\migrations\0004_auto_20200422_1248.py, code is 12, comment is 1, blank is 5.
+TradingNews\Site\migrations\0005_auto_20200422_1510.py, code is 15, comment is 1, blank is 5.
+TradingNews\Site\migrations\0006_profile.py, code is 18, comment is 1, blank is 5.
+TradingNews\Site\migrations\0007_company_symbol.py, code is 12, comment is 1, blank is 5.
+TradingNews\Site\migrations\0008_company_logo.py, code is 12, comment is 1, blank is 5.
+TradingNews\Site\migrations\__init__.py, code is 0, comment is 0, blank is 0.
+TradingNews\Site\migrations\__pycache__\0001_initial.cpython-37.pyc, it is a binary file.
+TradingNews\Site\migrations\__pycache__\0002_auto_20200420_1047.cpython-37.pyc, it is a binary file.
+TradingNews\Site\migrations\__pycache__\0003_article_date.cpython-37.pyc, it is a binary file.
+TradingNews\Site\migrations\__pycache__\0004_auto_20200422_1248.cpython-37.pyc, it is a binary file.
+TradingNews\Site\migrations\__pycache__\0005_auto_20200422_1510.cpython-37.pyc, it is a binary file.
+TradingNews\Site\migrations\__pycache__\0006_profile.cpython-37.pyc, it is a binary file.
+TradingNews\Site\migrations\__pycache__\0007_company_symbol.cpython-37.pyc, it is a binary file.
+TradingNews\Site\migrations\__pycache__\__init__.cpython-37.pyc, it is a binary file.
+TradingNews\Site\models.py, code is 31, comment is 0, blank is 8.
+TradingNews\Site\templatetags\__init__.py, code is 0, comment is 0, blank is 0.
+TradingNews\Site\templatetags\custom_filters.py, code is 24, comment is 9, blank is 7.
+TradingNews\Site\testingDaily.json, code is 711, comment is 0, blank is 0.
+TradingNews\Site\testingEndpoint.json, code is 14, comment is 0, blank is 0.
+TradingNews\Site\testingIBM.json, code is 61, comment is 0, blank is 0.
+TradingNews\Site\testingIntraday.json, code is 712, comment is 0, blank is 0.
+TradingNews\Site\testingMonthly.json, code is 1753, comment is 0, blank is 0.
+TradingNews\Site\testingWeekly.json, code is 7605, comment is 0, blank is 0.
+TradingNews\Site\tests.py, code is 1, comment is 1, blank is 1.
+TradingNews\Site\urls.py, code is 12, comment is 0, blank is 1.
+TradingNews\Site\views.py, code is 67, comment is 9, blank is 26.
+TradingNews\static\Site\chart.js, code is 94, comment is 29, blank is 21.
+TradingNews\static\Site\loop.svg, code is 17, comment is 0, blank is 0.
+TradingNews\static\Site\script.js, code is 56, comment is 5, blank is 6.
+TradingNews\static\Site\style.css, code is 291, comment is 10, blank is 66.
+TradingNews\templates\base.html, code is 40, comment is 4, blank is 2.
+TradingNews\templates\Site\article.html, code is 53, comment is 3, blank is 1.
+TradingNews\templates\Site\company.html, code is 40, comment is 1, blank is 3.
+TradingNews\templates\Site\index.html, code is 3, comment is 0, blank is 0.
+TradingNews\templates\Site\sign-up.html, code is 11, comment is 1, blank is 1.
+TradingNews\TradingNews\__init__.py, code is 0, comment is 0, blank is 0.
+TradingNews\TradingNews\__pycache__\__init__.cpython-37.pyc, it is a binary file.
+TradingNews\TradingNews\__pycache__\settings.cpython-37.pyc, it is a binary file.
+TradingNews\TradingNews\__pycache__\urls.cpython-37.pyc, it is a binary file.
+TradingNews\TradingNews\__pycache__\wsgi.cpython-37.pyc, it is a binary file.
+TradingNews\TradingNews\asgi.py, code is 4, comment is 0, blank is 5.
+TradingNews\TradingNews\settings.py, code is 72, comment is 14, blank is 32.
+TradingNews\TradingNews\urls.py, code is 6, comment is 0, blank is 2.
+TradingNews\TradingNews\wsgi.py, code is 4, comment is 0, blank is 5.
+===============================================================================

@@ -105,6 +105,10 @@ a{
   background-color: #343434;
 }
 
+.search-element-symbol{
+  width: 50px;
+}
+
 .search-element-name{
   text-overflow: ellipsis;
   overflow: hidden;
@@ -139,10 +143,9 @@ a{
   min-width: 750px;
 }
 
-.watchlist-container{
-  margin-right: 30px;
+.col-2{
+  margin-left: 20px;
 }
-
 
 /* PROFILE CSS */
 .profile-container{
@@ -206,6 +209,7 @@ a{
 
 .profile-info{
   display: flex;
+  margin-top: 8px;
 }
 
 .profile-info-col{
@@ -217,7 +221,7 @@ a{
 }
 
 .profile-info-element{
-  font-size: 14px;
+  font-size: 13px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -248,6 +252,7 @@ a{
 .profile-chart-button{
   margin-left: 15px;
   cursor: pointer;
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -283,6 +288,7 @@ a{
   padding: 0px 5px 0px 5px;
   margin-right: 10px;
   border-radius: 4px;
+  font-size: 16px;
 }
 
 .filter-element:hover, .current-filter{
@@ -321,6 +327,7 @@ a{
 
 .article-published{
   font-size: 11px;
+  color: #bdb0a8;
 }
 
 .article-title{
@@ -337,6 +344,7 @@ a{
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  font-size: 15px;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
