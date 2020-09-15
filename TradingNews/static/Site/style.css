@@ -105,16 +105,20 @@ a{
   background-color: #343434;
 }
 
-.search-element-symbol{
+.search-element-symbol, .search-element-type{
   width: 50px;
 }
 
-.search-element-name{
+.search-element-name, .search-element-type{
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.search-element-name{
   width: 250px;
 }
+
 
 .sign-up-button, .login-button{
   padding: 8px;
@@ -231,6 +235,7 @@ a{
 
 .profile-info-element div:nth-child(2){
   font-weight: bold;
+  font-size: 14px;
 }
 
 .profile-info-element:last-child{

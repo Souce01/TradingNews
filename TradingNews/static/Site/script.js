@@ -51,7 +51,7 @@ $("#navbar-search-field").on("change input", function (e) {
             <a href="http://127.0.0.1:8000/company/${x['1. symbol']}" class="search-field-content-element">
               <div class="search-element-symbol">${x['1. symbol']}</div>
               <div class="search-element-name">${x['2. name']}</div>
-              <div>${x['3. type']}</div>
+              <div class="search-element-type">${x['3. type']}</div>
             </a>
           `);
         }
