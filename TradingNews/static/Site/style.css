@@ -73,7 +73,6 @@ a{
 /* 
   search-field-content total width (width + padding) 
   is hard coded relative to navbar-search-container total width
-  TODO need to find a better way
 */
 
 #search-field-content{
@@ -149,7 +148,11 @@ a{
 
 .col-2{
   margin-left: 20px;
+  width: 300px;
 }
+
+
+/* COL-1 */
 
 /* PROFILE CSS */
 .profile-container{
@@ -167,7 +170,8 @@ a{
 }
 
 .profile-header div:nth-child(1) {
-  font-size: 20px;
+  font-size: 22px;
+  color: white;
 }
 
 .profile-header div:nth-child(2){
@@ -338,6 +342,7 @@ a{
 .article-title{
   margin-top: 8px;
   margin-bottom: 8px;
+  color: white;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -377,4 +382,22 @@ a.btn{
 
 a.btn:nth-child(2){
   margin-left: 8px;
+}
+
+
+/* COL-2 */
+
+/* description*/
+.description-container div, .description-container p{
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.description-container h4{
+  margin: 13px 0px;
+  color: white;
+}
+
+.description-container b{
+  color: white;
 }
