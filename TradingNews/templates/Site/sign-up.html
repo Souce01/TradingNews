@@ -3,11 +3,24 @@
 {% block navbar %}
     <!-- empty out the navbar instead of making a new base .html -->
 {% endblock %}
+
 {% block content %}
-    <div class="content">
-        <h2>Sign up</h2>
-        <form method="post">
-        <button type="submit">Sign up</button>
-        </form>
+    <div class="sign-up-content">
+        <a href="{% url 'Site:index'%}" class="logo">TradingNews</a>
+        <div>
+            <div class="sign-up-container">
+                <h2>Sign up!</h2>
+                <form method="post" class="sign-up-form-container">
+                    <input type="text" placeholder="Username"  class="" name="Username" />
+                    <input type="text" placeholder="Password"  class="" name="Password" />
+                    <input type="text" placeholder="Confirm Password"  class="" name="CPassword" />
+                    <button type="submit">Sign up</button>
+                </form>
+            </div>
+            <div class="login-container">
+                <h2>Already have an account? asdfasdf</h2>
+                <a href="">Login</a>
+            </div>
+        </div>
     </div>
 {% endblock %}

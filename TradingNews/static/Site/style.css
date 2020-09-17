@@ -401,3 +401,47 @@ a.btn:nth-child(2){
 .description-container b{
   color: white;
 }
+
+/* SIGN-UP PAGE */
+.sign-up-content{
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+}
+
+
+.sign-up-content, .sign-up-container, .sign-up-form-container, .login-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign-up-container, .login-container{
+  width: 316px;
+  height: 338px;
+  justify-content: center;
+}
+
+.sign-up-container{
+  background-color: #343434;
+}
+
+.login-container{
+  background-color: #052F5F;
+}
+
+.login-container h2{
+  text-align: center;
+}
+
+.sign-up-content > div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 0px;
+}
+
+.logo{
+  font-size: 48px;
+  margin-bottom: 50px;
+}
