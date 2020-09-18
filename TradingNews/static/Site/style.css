@@ -30,8 +30,9 @@ a{
   align-items: center;
 }
 
-.navbar-title{
+.navbar-logo{
   margin: auto 0px;
+  font-family: Pridi;
 }
 
 .navbar-options-element{
@@ -409,6 +410,21 @@ a.btn:nth-child(2){
   justify-content: center;
 }
 
+.logo {
+  font-size: 48px;
+  font-family: Pridi;
+  margin-bottom: 50px;
+}
+
+
+.sign-up-content > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 0px;
+  margin-bottom: 100px;
+}
+
 
 .sign-up-content, .sign-up-container, .sign-up-form-container, .login-container{
   display: flex;
@@ -430,18 +446,40 @@ a.btn:nth-child(2){
   background-color: #052F5F;
 }
 
-.login-container h2{
+.form-input{
+  width: 221px;
+  padding: 8px;
+  margin-bottom: 15px;
+  background-color: #14110F;
+  border: none;
+  border-radius: 3px;
+  color: #7F7B82;
+}
+
+.sign-up-form-container button{
+  border: 1px solid #052F5F;
+  background-color: #052F5F;
+  cursor: pointer;
+}
+
+.login-container h2 {
   text-align: center;
+  padding: 0px 15px;
 }
 
-.sign-up-content > div{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border-radius: 0px;
-}
-
-.logo{
-  font-size: 48px;
+.login-container a {
+  border: 1px solid white;
   margin-bottom: 50px;
+}
+
+.login-container a, .sign-up-form-container button {
+  padding: 7px 35px;
+  border-radius: 15px;
+  color: white;
+}
+
+
+@font-face{
+  font-family: Pridi;
+  src: url(Pridi-Regular.ttf);
 }
