@@ -423,6 +423,9 @@ a.btn:nth-child(2){
   align-items: center;
   border-radius: 0px;
   margin-bottom: 100px;
+  -webkit-box-shadow: 6px 8px 12px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 6px 8px 12px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 6px 8px 12px 0px rgba(0, 0, 0, 0.75);
 }
 
 
@@ -448,7 +451,7 @@ a.btn:nth-child(2){
 
 .form-input{
   width: 221px;
-  padding: 8px;
+  padding: 10px;
   margin-bottom: 15px;
   background-color: #14110F;
   border: none;
@@ -473,7 +476,7 @@ a.btn:nth-child(2){
 }
 
 .login-container a, .sign-up-form-container button {
-  padding: 7px 35px;
+  padding: 7px 40px;
   border-radius: 15px;
   color: white;
 }
