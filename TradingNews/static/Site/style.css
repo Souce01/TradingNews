@@ -2,7 +2,12 @@ body{
     margin: 0px;
     background-color: #14110f;
     color: #e2dddb;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Roboto;
+
+}
+
+b, h1, h2, h3, h4{
+  font-family: Roboto-Bold;
 }
 
 a{
@@ -239,7 +244,7 @@ a{
 }
 
 .profile-info-element div:nth-child(2){
-  font-weight: bold;
+  font-family: Roboto-Bold;
   font-size: 14px;
 }
 
@@ -485,4 +490,14 @@ a.btn:nth-child(2){
 @font-face{
   font-family: Pridi;
   src: url(Pridi-Regular.ttf);
+}
+
+@font-face{
+  font-family: Roboto;
+  src: url(Roboto-Regular.ttf);
+}
+
+@font-face{
+  font-family: Roboto-Bold;
+  src: url(Roboto-Bold.ttf);
 }
