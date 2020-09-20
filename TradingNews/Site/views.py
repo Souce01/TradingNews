@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.http import Http404, JsonResponse
 from django.contrib import messages
+from .forms import SignUpForm
 from .models import Company
 from newsapi import NewsApiClient
 from datetime import datetime
@@ -19,9 +20,13 @@ def index(request):
     return render(request, 'Site/index.html')
 
 def signUp(request):
-    form = UserCreationForm()
+    if request.user.is_authenticated:
+        # will change this later when My error pages will be done
+        raise Http404("Already authenticated. Sign out to create an account!")
+
+    form = SignUpForm()
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')

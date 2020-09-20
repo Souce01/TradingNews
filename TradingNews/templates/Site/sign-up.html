@@ -11,9 +11,8 @@
             <div class="sign-up-container">
                 <h2>Sign up!</h2>
                 <form method="post" class="sign-up-form-container">
-                    <input type="text" placeholder="Username"  class="form-input" name="Username" />
-                    <input type="text" placeholder="Password"  class="form-input" name="Password" />
-                    <input type="text" placeholder="Confirm Password"  class="form-input" name="CPassword" />
+                    {% csrf_token %}
+                    {{ form }}
                     <button type="submit">Submit</button>
                 </form>
             </div>

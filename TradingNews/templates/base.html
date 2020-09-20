@@ -13,6 +13,7 @@
     <body>
         <!-- default navbar -->
         {% block navbar %}
+            {% if user.is_authenticated %}
             <div class="navbar">
                 <div class="navbar-options-container">
                     <a href="{% url 'Site:index' %}" ><h1 class="navbar-logo">TradingNews</h1></a>
@@ -24,10 +25,26 @@
                     </div>
                 </div>
                 <div>
+                    <!-- logout -->
+                    <a href="{% url 'Site:index' %}" class="sign-up-button">Logout</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="navbar">
+                <div class="navbar-options-container">
+                    <a href="{% url 'Site:index' %}" ><h1 class="navbar-logo">TradingNews</h1></a>
+                </div>
+                <div id="navbar-search-field-container">
+                    <input type="text" id="navbar-search-field" placeholder="Search for a stock...">
+                    <div id="search-field-content">
+                    </div>
+                </div>
+                <div>
                     <a href="{% url 'Site:sign-up' %}" class="sign-up-button">Sign up</a>
                     <a class="login-button">Login</a>
                 </div>
             </div>
+            {% endif %}
         {% endblock %}
 
         <!-- content -->
