@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate, login as dj_login, logout as dj_logout
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.http import Http404, JsonResponse
@@ -21,7 +21,6 @@ def index(request):
 
 def signUp(request):
     if request.user.is_authenticated:
-        # will change this later when My error pages will be done
         raise Http404("Already authenticated. Sign out to create an account!")
 
     form = SignUpModelForm()
@@ -32,9 +31,17 @@ def signUp(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
-            login(request, user)
+            dj_login(request, user)
             return redirect('Site:index')
     return render(request, 'Site/sign-up.html', {"form": form})
+
+#TODO
+def login(request):
+    return redirect('Site:index')
+
+def logout(request):
+    dj_logout(request)
+    return redirect('Site:index')
 
 
 def company(request, symbol, filter='relevancy', pageNb=1):

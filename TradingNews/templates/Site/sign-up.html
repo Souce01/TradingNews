@@ -12,7 +12,7 @@
                 <h2>Sign up!</h2>
                 <form method="post" class="sign-up-form-container">
                     {% csrf_token %}
-                    {{ form.as_table }}
+                    {{ form }}
                     <button type="submit">Submit</button>
                 </form>
             </div>

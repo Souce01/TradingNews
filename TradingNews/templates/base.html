@@ -26,7 +26,7 @@
                 </div>
                 <div>
                     <!-- logout -->
-                    <a href="{% url 'Site:index' %}" class="sign-up-button">Logout</a>
+                    <a href="{% url 'Site:logout' %}" class="sign-up-button">Logout</a>
                 </div>
             </div>
             {% else %}
@@ -41,7 +41,7 @@
                 </div>
                 <div>
                     <a href="{% url 'Site:sign-up' %}" class="sign-up-button">Sign up</a>
-                    <a class="login-button">Login</a>
+                    <a href="{% url 'Site:login'%}" class="login-button">Login</a>
                 </div>
             </div>
             {% endif %}
