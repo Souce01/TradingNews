@@ -154,7 +154,6 @@ a{
 
 .col-2{
   margin-left: 20px;
-  width: 300px;
 }
 
 
@@ -454,14 +453,19 @@ a.btn:nth-child(2){
   background-color: #052F5F;
 }
 
-.form-input{
+.sign-up-form-container input{
   width: 221px;
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   background-color: #14110F;
   border: none;
   border-radius: 3px;
   color: #7F7B82;
+}
+
+.errorlist{
+  font-size: 10px;
+  color: #d42c2c;
 }
 
 .sign-up-form-container button{
