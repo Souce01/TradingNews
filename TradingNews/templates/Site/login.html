@@ -6,10 +6,10 @@
 
 {% block content %}
     <div class="sign-up-content">
-        <a href="{% url 'Site:index' %}" class="logo">TradingNews</a>
+        <a href="{% url 'Site:index'%}" class="logo">TradingNews</a>
         <div>
             <div class="sign-up-container">
-                <h2>Sign up!</h2>
+                <h2>Login!</h2>
                 <form method="post" class="sign-up-form-container">
                     {% csrf_token %}
                     {{ form }}
@@ -17,8 +17,8 @@
                 </form>
             </div>
             <div class="login-container">
-                <h2>Already have an account?</h2>
-                <a href="{% url 'Site:login' %}">Login</a>
+                <h2>Don't have an account?</h2>
+                <a href="{% url 'Site:sign-up' %}">Sign up</a>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.contrib.auth import password_validation
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 """
@@ -130,4 +130,13 @@ class SignUpModelForm(UserCreationForm):
 
         self.fields['username'].label = ''
         self.fields['username'].help_text = ''
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+
+class LoginModelForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password'].label = ''
+        self.fields['password'].widget.attrs['placeholder'] = 'Password'
+
+        self.fields['username'].label = ''
         self.fields['username'].widget.attrs['placeholder'] = 'Username'

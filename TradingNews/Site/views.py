@@ -1,9 +1,8 @@
 from django.contrib.auth import authenticate, login as dj_login, logout as dj_logout
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth.forms import UserCreationForm
 from django.http import Http404, JsonResponse
 from django.contrib import messages
-from .forms import SignUpModelForm
+from .forms import SignUpModelForm, LoginModelForm
 from .models import Company
 from newsapi import NewsApiClient
 from datetime import datetime
@@ -37,7 +36,22 @@ def signUp(request):
 
 #TODO
 def login(request):
-    return redirect('Site:index')
+    if request.user.is_authenticated:
+        raise Http404("Already authenticated. Sign out to login on another account!")
+
+    form = LoginModelForm()
+    if request.method == 'POST':
+        form = LoginModelForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                dj_login(request, user)
+                messages.info(request, f"You are now logged in as {username}")
+                return redirect('Site:index')
+
+    return render(request, 'Site/login.html', {"form": form})
 
 def logout(request):
     dj_logout(request)
