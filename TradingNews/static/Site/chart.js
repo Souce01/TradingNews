@@ -1,13 +1,14 @@
 const ctx = document.getElementById('chart').getContext('2d');
 
 // creating the chart with dummy data
+let data = [['one'],[0]]
 let myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ['1'],
+        labels: data[0],
         datasets: [{
             label: 'price',
-            data: [1],
+            data: data[1],
             pointRadius: 2
         }]
     },
@@ -68,6 +69,9 @@ function addChartData(chart, data){
 
     // turns the background color red if the last price is lower than the first
     // otherwise background color is green
+    
+    // couldn't find a better way to do this. It's not optimal because the function is re-added everytimg
+    // the chart update itself
     chart.data.datasets[0].backgroundColor = function () {
         if (data[1][data[1].length - 1] < data[1][0]) {
             return 'rgba(240, 22, 47, 0.6)';

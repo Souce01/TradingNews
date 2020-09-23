@@ -34,7 +34,6 @@ def signUp(request):
             return redirect('Site:index')
     return render(request, 'Site/sign-up.html', {"form": form})
 
-#TODO
 def login(request):
     if request.user.is_authenticated:
         raise Http404("Already authenticated. Sign out to login on another account!")
