@@ -1,27 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'Site/auth-base.html' %}
 
-{% block navbar %}
-    <!-- empty out the navbar instead of making a new base .html -->
-{% endblock %}
+{% block auth-title-left %}Login!{% endblock %}
 
-{% block content %}
-    <div class="sign-up-content">
-        <a href="{% url 'Site:index'%}" class="logo">TradingNews</a>
-        <div>
-            <div class="sign-up-container">
-                <h2>Login!</h2>
-                <form method="post" class="sign-up-form-container">
-                    {% csrf_token %}
-                    {{ form }}
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-            <div class="login-container">
-                <h2>Don't have an account?</h2>
-                <a href="{% url 'Site:sign-up' %}">Sign up</a>
-            </div>
-        </div>
-    </div>
-    <script>
-    </script>
+{% block auth-content-right %}
+    <h2>Don't have an account?</h2>
+    <a href="{% url 'Site:sign-up' %}" class="auth-button">Sign up</a>
 {% endblock %}

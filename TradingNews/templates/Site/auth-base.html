@@ -1,0 +1,26 @@
+{% extends 'Site/base.html' %}
+
+{% block navbar %}
+    <!-- empty out the navbar instead of making a new base .html -->
+{% endblock %}
+
+{% block content %}
+    <div class="auth-content">
+        <a href="{% url 'Site:index' %}" class="auth-logo">TradingNews</a>
+        <div class="auth-container">
+            <div>
+                <h2>{% block auth-title-left %} {% endblock %}</h2>
+                <form method="post" class="auth-form-container">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit" class="auth-button">Submit</button>
+                </form>
+            </div>
+            <div>
+                {% block auth-content-right %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    <script>
+    </script>
+{% endblock %}

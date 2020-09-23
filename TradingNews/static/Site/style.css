@@ -1,9 +1,23 @@
+@font-face{
+  font-family: Pridi;
+  src: url(Pridi-Regular.ttf);
+}
+
+@font-face{
+  font-family: Roboto;
+  src: url(Roboto-Regular.ttf);
+}
+
+@font-face{
+  font-family: Roboto-Bold;
+  src: url(Roboto-Bold.ttf);
+}
+
 body{
     margin: 0px;
     background-color: #14110f;
     color: #e2dddb;
     font-family: Roboto;
-
 }
 
 b, h1, h2, h3, h4{
@@ -392,36 +406,22 @@ a.btn:nth-child(2){
 
 /* COL-2 */
 
-/* description*/
-.description-container div, .description-container p{
-  font-size: 13px;
-  line-height: 1.4;
-}
 
-.description-container h4{
-  margin: 13px 0px;
-  color: white;
-}
-
-.description-container b{
-  color: white;
-}
-
-/* SIGN-UP PAGE */
-.sign-up-content{
+/* AUTHENTICATION PAGES */
+.auth-content{
   width: 100vw;
   height: 100vh;
   justify-content: center;
 }
 
-.logo {
+.auth-logo {
   font-size: 48px;
   font-family: Pridi;
   margin-bottom: 50px;
 }
 
 
-.sign-up-content > div {
+.auth-content > div {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -432,28 +432,27 @@ a.btn:nth-child(2){
   box-shadow: 6px 8px 12px 0px rgba(0, 0, 0, 0.75);
 }
 
-
-.sign-up-content, .sign-up-container, .sign-up-form-container, .login-container{
+.auth-content, .auth-container > div, .auth-form-container{
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.sign-up-container, .login-container{
+.auth-container > div{
   width: 316px;
   height: 338px;
   justify-content: center;
 }
 
-.sign-up-container{
+.auth-container > div:first-of-type{
   background-color: #343434;
 }
 
-.login-container{
+.auth-container > div:nth-of-type(2){
   background-color: #052F5F;
 }
 
-.sign-up-form-container input{
+.auth-form-container input{
   width: 221px;
   padding: 10px;
   margin-bottom: 12px;
@@ -463,45 +462,29 @@ a.btn:nth-child(2){
   color: #7F7B82;
 }
 
-.errorlist{
-  font-size: 10px;
-  color: #d42c2c;
-}
-
-.sign-up-form-container button{
+.auth-form-container button{
   border: 1px solid #052F5F;
   background-color: #052F5F;
   cursor: pointer;
 }
 
-.login-container h2 {
+.auth-container > div:nth-of-type(2) h2 {
   text-align: center;
   padding: 0px 20px;
 }
 
-.login-container a {
+.auth-container > div:nth-of-type(2) a {
   border: 1px solid white;
   margin-bottom: 50px;
 }
 
-.login-container a, .sign-up-form-container button {
+.auth-button{
   padding: 7px 40px;
   border-radius: 15px;
   color: white;
 }
 
-
-@font-face{
-  font-family: Pridi;
-  src: url(Pridi-Regular.ttf);
-}
-
-@font-face{
-  font-family: Roboto;
-  src: url(Roboto-Regular.ttf);
-}
-
-@font-face{
-  font-family: Roboto-Bold;
-  src: url(Roboto-Bold.ttf);
+.errorlist {
+  font-size: 10px;
+  color: #d42c2c;
 }
