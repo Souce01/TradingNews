@@ -301,6 +301,17 @@ a{
   height: auto;
 }
 
+#follow-button{
+  cursor: pointer;
+  background: #052F5F;
+  padding: 6px 15px;
+  border-radius: 3px;
+}
+
+#follow-button:hover{
+  filter: brightness(125%);
+}
+
 
 /* FILTER CSS */
 .filter{

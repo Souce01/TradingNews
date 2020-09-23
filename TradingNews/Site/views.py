@@ -80,13 +80,11 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     # if the request is invalid or the json is empty because the symbol is invalid raise 404
     if resp.status_code != 200 or len(company) == 0:
         raise Http404("error")
-
-    
     """
 
     # if the filter in the request is not in the valid list raise 404 
     if filter not in validFilter:
-        raise Http404("error")
+        raise Http404("error, invalid filter")
     
     articles = newsapi.get_everything(
         q=f"{company['Name']} AND {company['Symbol']}", language='en', sort_by=filter, page=pageNb)

@@ -5,7 +5,8 @@
 {% block title %}{{ company.Symbol }}{% endblock %}
 
 {% block scripts %}
-    <script src="{% static 'Site/chart.js' %}"></script>
+    <script src="{% static 'Site/company.js' %}"></script>
+    <script src="{% static 'Site/articles.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -18,7 +19,9 @@
                         <div>{{ company.Name }}</div>
                         <div>{{ company.Symbol }} &#8226 {{ company.Exchange }}</div>
                     </div>
-                    <div id="follow-button">follow</div>
+                    {% if user.is_authenticated %}
+                        <div id="follow-button">follow</div>
+                    {% endif %}
                 </div>
                 <div class="profile-content-container">
                     <div class="profile-info-container">

@@ -69,14 +69,12 @@ function addChartData(chart, data){
 
     // turns the background color red if the last price is lower than the first
     // otherwise background color is green
-    
-    // couldn't find a better way to do this. It's not optimal because the function is re-added everytimg
-    // the chart update itself
     chart.data.datasets[0].backgroundColor = function () {
+        let opacity = 0.7
         if (data[1][data[1].length - 1] < data[1][0]) {
-            return 'rgba(240, 22, 47, 0.6)';
+            return `rgba(240, 22, 47, ${opacity})`;
         } else {
-            return 'rgba(0, 204, 92, 0.6)';
+            return `rgba(0, 204, 92, ${opacity})`;
         }
     }
     
@@ -145,3 +143,7 @@ $("#profile-chart-button-60m")
         updateChart(myChart, '60min', $(this));
         e.preventDefault();
     });
+
+
+/* FOLLOW */
+

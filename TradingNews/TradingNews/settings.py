@@ -31,7 +31,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
-SESSION_COOKIE_AGE = 5 * 60
+SESSION_COOKIE_AGE = 10 * 60
 
 # Application definition
 
