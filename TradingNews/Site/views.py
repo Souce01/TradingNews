@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import Http404, JsonResponse
 from django.contrib import messages
 from .forms import SignUpModelForm, LoginModelForm
-from .models import Company
 from newsapi import NewsApiClient
 from datetime import datetime
 import requests
