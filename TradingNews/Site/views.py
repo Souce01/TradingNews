@@ -71,7 +71,7 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     # restricted to 5 api calls per minute and 500 per day. So for tesing sake I'll use a json file for development
     """
     resp = requests.get(
-        'https://www.alphavantage.co/query?function=OVERVIEW&symbol={0}&apikey={1}'.format(symbol.upper(), AlphaVantage_Key)
+        f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol.upper()}&apikey={AlphaVantage_Key}'
     )
     company = resp.json()
 
@@ -133,4 +133,7 @@ def searchEndpoint(request, keyword):
         
         return JsonResponse(data, status=200, safe=False)
 
-    
+def follow(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            return JsonResponse({'status': 'ok'})

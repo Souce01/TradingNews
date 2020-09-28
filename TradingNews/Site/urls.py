@@ -11,5 +11,6 @@ urlpatterns = [
     path('company/<str:symbol>/<str:filter>', views.company, name='company-filter'),
     path('company/<str:symbol>/<str:filter>/<int:pageNb>', views.company, name='company-filter-page'),
     path('api/chartData/<str:symbol>/<str:interval>', views.chartData, name='api-chartData'),
-    path('api/searchEndPoint/<str:keyword>', views.searchEndpoint, name='api-searchEndPoint')
+    path('api/searchEndPoint/<str:keyword>', views.searchEndpoint, name='api-searchEndPoint'),
+    path('api/follow', views.follow, name='api-follow')
 ]
