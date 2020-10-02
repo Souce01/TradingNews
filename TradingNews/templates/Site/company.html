@@ -8,6 +8,30 @@
     <script src="{% static 'Site/company.js' %}"></script>
     <script src="{% static 'Site/articles.js' %}"></script>
     <script>
+        $("#follow-button").on("click", function(e){
+            fetch("{% url 'Site:api-follow' %}",{
+                method: "POST",
+                credentials: 'include',
+                mode: 'same-origin',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    'X-CSRFToken': "{{ csrf_token }}"
+                },
+                body: JSON.stringify({ symbol: "{{ company.Symbol }}" })
+            }).then(resp => {
+                if (!resp.ok) {
+                    throw Error(resp.statusText);
+                }
+                return resp;
+            }).then(resp => {
+                return resp.json();
+            }).then(data => {
+                console.log(data);
+            }).catch(err =>{
+                console.error(err);
+            })
+        })
     </script>
 {% endblock %}
 

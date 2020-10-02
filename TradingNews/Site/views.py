@@ -134,5 +134,5 @@ def searchEndpoint(request, keyword):
 
 def follow(request):
     if request.method == 'POST':
-        if request.user.is_authenticated:
-            return JsonResponse({'status': 'ok'})
+        data = json.loads(request.body)
+        return JsonResponse({'symbol': data.get("symbol", ""), 'user': request.user.id })
