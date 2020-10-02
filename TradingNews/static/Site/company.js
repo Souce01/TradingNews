@@ -9,17 +9,32 @@ let myChart = new Chart(ctx, {
         datasets: [{
             label: 'price',
             data: data[1],
-            pointRadius: 2
+            pointRadius: 0
         }]
     },
     options: {
         responsive: true,
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+        },
         legend: {
             display: false
         },
         scales: {
+            yAxes: [{
+                display: true,
+                position: 'right',
+                gridLines: {
+                    display: false
+                }
+            }
+            ],
             xAxes: [{
                 ticks: {
+                    display: false,
+                },
+                gridLines: {
                     display: false
                 }
             }]
