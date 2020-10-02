@@ -158,7 +158,3 @@ $("#profile-chart-button-60m")
         updateChart(myChart, '60min', $(this));
         e.preventDefault();
     });
-
-
-/* FOLLOW */
-

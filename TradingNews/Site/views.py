@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate, login as dj_login, logout as dj_lo
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import Http404, JsonResponse
 from django.contrib import messages
+from django.contrib.auth.models import User
+from .models import Follows
 from .forms import SignUpModelForm, LoginModelForm
 from newsapi import NewsApiClient
 from datetime import datetime
@@ -92,11 +94,11 @@ def company(request, symbol, filter='relevancy', pageNb=1):
 def chartData(request, symbol, interval):
     if request.method == 'GET':
         symbol = symbol.upper()
-        validTime = ['1min', '5min', '15min', '30min', '60min']
+        validInterval = ['1min', '5min', '15min', '30min', '60min']
 
         # will return an error if the time interval is not in the valid time interval list
-        if interval not in validTime:
-            return JsonResponse({'status': 'false', 'message': 'Invalid time'}, status=400, safe=False)
+        if interval not in validInterval:
+            return JsonResponse({'status': False, 'message': 'Invalid time'}, status=400, safe=False)
 
         resp = requests.get(
             f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey={AlphaVantage_Key}'
@@ -104,12 +106,12 @@ def chartData(request, symbol, interval):
 
         if resp.status_code != 200:
             # invalid request error response
-            return JsonResponse({'status':'false', 'message':'bad request'}, status=400, safe=False)
+            return JsonResponse({'status': False, 'message': 'bad request'}, status=400, safe=False)
 
         data = resp.json()
 
         if data.get("Error Message", "") != "":
-            return JsonResponse({'status':'false', 'message':'Invalid symbol'}, status=400, safe=False)
+            return JsonResponse({'status': False, 'message': 'Invalid symbol'}, status=400, safe=False)
 
         return JsonResponse(data, status=200, safe=False)
 
@@ -122,17 +124,28 @@ def searchEndpoint(request, keyword):
 
         if resp.status_code != 200:
             # invalid request error response
-            return JsonResponse({'status': 'false', 'message': 'bad request'}, status=400, safe=False)
+            return JsonResponse({'status': False, 'message': 'bad request'}, status=400, safe=False)
 
         data = resp.json()
 
         if data.get("Error Message", "") != "":
             # invalid keyword response
-            return JsonResponse({'status': 'false', 'message': 'Invalid keyword'}, status=400, safe=False)
+            return JsonResponse({'status': False, 'message': 'Invalid keyword'}, status=400, safe=False)
         
         return JsonResponse(data, status=200, safe=False)
 
 def follow(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        return JsonResponse({'symbol': data.get("symbol", ""), 'user': request.user.id })
+        if request.user.is_authenticated:
+            symbol = json.loads(request.body).get("symbol", "")
+            if symbol != "":
+                if Follows.objects.filter(user=request.user, symbol=symbol):
+                    Follows.objects.get(user=request.user,
+                                        symbol=symbol).delete()
+                    return JsonResponse({'followed': False, 'symbol': symbol})
+                else:
+                    follow = Follows(user=request.user,
+                                     symbol=symbol)
+                    follow.save()
+                    return JsonResponse({'symbol': symbol, 'user': request.user.id, 'followed': True})
+            return JsonResponse({'status': False})
