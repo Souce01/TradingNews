@@ -158,3 +158,15 @@ $("#profile-chart-button-60m")
         updateChart(myChart, '60min', $(this));
         e.preventDefault();
     });
+
+// changes text inside the follow button on hover
+$(document).on('mouseenter', '.followed', function () {
+    $("#follow-button").text("un-follow");
+    //console.log('in');
+})
+
+$(document).on('mouseleave', '.followed', function () {
+    $("#follow-button").text("followed");
+    //console.log('out');
+})
+

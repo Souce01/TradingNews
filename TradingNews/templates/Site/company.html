@@ -27,7 +27,13 @@
             }).then(resp => {
                 return resp.json();
             }).then(data => {
-                console.log(data);
+                if (data['followed']){
+                    $('#follow-button').removeClass('not-followed').addClass('followed');
+                    $('#follow-button').text("followed");
+                } else{
+                    $('#follow-button').removeClass('followed').addClass('not-followed');
+                    $('#follow-button').text("follow");
+                }
             }).catch(err =>{
                 console.error(err);
             })

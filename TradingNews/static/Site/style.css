@@ -296,20 +296,31 @@ a{
   color: #4193c6;
 }
 
-.profile-chart{
-  width: auto;
-  height: auto;
-}
-
 #follow-button{
   cursor: pointer;
-  background: #052F5F;
   padding: 6px 15px;
   border-radius: 3px;
 }
 
 #follow-button:hover{
   filter: brightness(125%);
+}
+
+.followed{
+  border: solid 1px white;
+}
+
+.followed:hover{
+  background-color: #d42c2c;
+  border: none;
+}
+
+.not-followed{
+  background-color: #052F5F;
+}
+
+.not-followed:hover{
+  background-color: #00cc5c;
 }
 
 

@@ -38,7 +38,6 @@ $("#navbar-search-field").on("change input", function (e) {
             </a>
           `);
         }
-        console.log(matches);
       })
       .catch(err => {
         console.log(err);

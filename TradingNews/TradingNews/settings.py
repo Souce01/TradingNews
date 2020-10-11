@@ -31,7 +31,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 10 * 60
+SESSION_SAVE_EVERY_REQUEST = True
 
 # Application definition
 
