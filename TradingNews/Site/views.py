@@ -84,10 +84,10 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     company = resp.json()
 
     if company.get("note", "") != "":
-        return Http404("api call limit reached")
+        raise Http404("api call limit reached")
     
     if len(company) == 0:
-        return Http404("invalid symbol")
+        raise Http404("invalid symbol")
 
     ctx.update({'company': company})
 
@@ -97,12 +97,10 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     endPoint = resp.json()
 
     if endPoint.get("note", "") != "":
-        return Http404("api call limit reached")
-    
-    if len(endPoint) == 0:
-        return Http404("invalid symbol")
+        raise Http404("api call limit reached")
 
-    ctx.update({'endPoint': endPoint['Global Quote']})
+    # using get here because otherwise django will raise a KeyError before other Http404 errors
+    ctx.update({'endPoint': endPoint.get('Global Quote')})
 
     # if the filter in the request is not in the valid list raise 404 
     if filter not in validFilter:
