@@ -136,27 +136,23 @@ function getSymbol() {
 
 /* CHART HANDLERS */
 $("#profile-chart-button-5m")
-    .on("click", function (e) {
+    .on("click", function () {
         updateChart(myChart, '5min', $(this));
-        e.preventDefault();
     });
 
 $("#profile-chart-button-15m")
-    .on("click", function (e) {
+    .on("click", function () {
         updateChart(myChart, '15min', $(this));
-        e.preventDefault();
     });
 
 $("#profile-chart-button-30m")
-    .on("click", function (e) {
+    .on("click", function () {
         updateChart(myChart, '30min', $(this));
-        e.preventDefault();
     });
 
 $("#profile-chart-button-60m")
-    .on("click", function (e) {
+    .on("click", function () {
         updateChart(myChart, '60min', $(this));
-        e.preventDefault();
     });
 
 // changes text inside the follow button on hover

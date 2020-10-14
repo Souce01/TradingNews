@@ -52,18 +52,25 @@
                         <div>{{ company.Symbol }} &#8226 {{ company.Exchange }}</div>
                     </div>
                     {% if user.is_authenticated %}
-                        <div id="follow-button">follow</div>
+                        {% if followed %}
+                            <div id="follow-button" class="followed">follow</div>
+                        {% else %}
+                            <div id="follow-button" class="not-followed">follow</div>
+                        {% endif %}
                     {% endif %}
                 </div>
                 <div class="profile-content-container">
                     <div class="profile-info-container">
                         <div class="profile-price-container">
-                            <div class="profile-price">{{ endPoint|get:"05. price"|decimalLimit:3 }}</div>
-                            {% if endPoint|get:"09. change"|first == '-' %}
-                                <div class="profile-price-change red">{{ endPoint|get:"09. change"|decimalLimit }} ({{ endPoint|get:"10. change percent" }})</div>
-                            {% else %}
-                                <div class="profile-price-change green">+{{ endPoint|get:"09. change"|decimalLimit }} ({{ endPoint|get:"10. change percent" }})</div>
-                            {% endif %}
+                            <div>
+                                <div class="profile-price">{{ endPoint|get:"05. price"|decimalLimit:3 }}</div>
+                                {% if endPoint|get:"09. change"|first == '-' %}
+                                    <div class="profile-price-change red">{{ endPoint|get:"09. change"|decimalLimit }} ({{ endPoint|get:"10. change percent" }})</div>
+                                {% else %}
+                                    <div class="profile-price-change green">+{{ endPoint|get:"09. change"|decimalLimit }} ({{ endPoint|get:"10. change percent" }})</div>
+                                {% endif %}
+                            </div>
+                            <div style="font-size: 13px;">as of: {{endPoint|get:"07. latest trading day" }}</div>
                         </div>
                         <div class="profile-info">
                             <div class="profile-info-col">

@@ -59,28 +59,50 @@ def logout(request):
 
 def company(request, symbol, filter='relevancy', pageNb=1):
     newsapi = NewsApiClient(api_key=NewsApi_Key)
+    ctx = {'page': pageNb, 'filter': filter, 'followed': False}
 
+    if request.user.is_authenticated:
+        if Follows.objects.filter(user=request.user, symbol=symbol):
+            ctx.update({'followed': True})
+
+    """
     #! for testing purposes only.
     data = open('C:/Users/alexandre/Desktop/project/TradingNews/TradingNews/Site/testingIBM.json')
     company = json.load(data)
+    ctx.update({'company': company})
     data.close()
 
     data = open('C:/Users/alexandre\Desktop\project\TradingNews\TradingNews\Site/testingEndpoint.json')
     endPoint = json.load(data)
+    ctx.update({'endPoint': endPoint['Global Quote']})
     data.close()
-
-    # restricted to 5 api calls per minute and 500 per day. So for tesing sake I'll use a json file for development
     """
+    # restricted to 5 api calls per minute and 500 per day. So for tesing sake I'll use a json file for development
     resp = requests.get(
         f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol.upper()}&apikey={AlphaVantage_Key}'
     )
     company = resp.json()
 
+    if company.get("note", "") != "":
+        return Http404("api call limit reached")
+    
+    if len(company) == 0:
+        return Http404("invalid symbol")
 
-    # if the request is invalid or the json is empty because the symbol is invalid raise 404
-    if resp.status_code != 200 or len(company) == 0:
-        raise Http404("error")
-    """
+    ctx.update({'company': company})
+
+    resp = requests.get(
+        f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol.upper()}&apikey={AlphaVantage_Key}'
+    )
+    endPoint = resp.json()
+
+    if endPoint.get("note", "") != "":
+        return Http404("api call limit reached")
+    
+    if len(endPoint) == 0:
+        return Http404("invalid symbol")
+
+    ctx.update({'endPoint': endPoint['Global Quote']})
 
     # if the filter in the request is not in the valid list raise 404 
     if filter not in validFilter:
@@ -88,8 +110,9 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     
     articles = newsapi.get_everything(
         q=f"{company['Name']} AND {company['Symbol']}", language='en', sort_by=filter, page=pageNb)
+    ctx.update({'articles': articles})
 
-    return render(request, 'Site/company.html', { 'company': company, 'endPoint': endPoint['Global Quote'], 'articles': articles, 'page': pageNb, 'filter': filter})
+    return render(request, 'Site/company.html', ctx)
 
 def chartData(request, symbol, interval):
     if request.method == 'GET':
