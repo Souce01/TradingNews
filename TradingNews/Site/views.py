@@ -112,6 +112,9 @@ def company(request, symbol, filter='relevancy', pageNb=1):
 
     return render(request, 'Site/company.html', ctx)
 
+def watchlist(request, filter='relevancy', pageNb=1):
+    return render(request, 'Site/watchlist.html')
+
 def chartData(request, symbol, interval):
     if request.method == 'GET':
         symbol = symbol.upper()

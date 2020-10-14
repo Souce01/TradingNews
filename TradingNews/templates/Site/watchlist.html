@@ -1,0 +1,12 @@
+{% extends 'Site/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}watchlist{% endblock %}
+{% block scripts %}
+    <script src="{% static 'Site/articles.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    {% include 'Site/article.html' %}
+{% endblock %}

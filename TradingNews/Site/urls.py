@@ -12,5 +12,8 @@ urlpatterns = [
     path('company/<str:symbol>/<str:filter>/<int:pageNb>', views.company, name='company-filter-page'),
     path('api/chartData/<str:symbol>/<str:interval>', views.chartData, name='api-chartData'),
     path('api/searchEndPoint/<str:keyword>', views.searchEndpoint, name='api-searchEndPoint'),
-    path('api/follow', views.follow, name='api-follow')
+    path('api/follow', views.follow, name='api-follow'),
+    path('watchlist', views.watchlist, name='watchlist'),
+    path('watchlist/<str:filter>', views.watchlist, name='watchlist-filter'),
+    path('watchlist/<str:filter>/<int:pageNb>', views.watchlist, name='watchlist-filter-page')
 ]
