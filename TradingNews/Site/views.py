@@ -99,7 +99,7 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     if endPoint.get("note", "") != "":
         raise Http404("api call limit reached")
 
-    # using get here because otherwise django will raise a KeyError before other Http404 errors
+    # using .get() here because otherwise django will raise a KeyError before other Http404 errors
     ctx.update({'endPoint': endPoint.get('Global Quote')})
 
     # if the filter in the request is not in the valid list raise 404 
@@ -113,6 +113,10 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     return render(request, 'Site/company.html', ctx)
 
 def watchlist(request, filter='relevancy', pageNb=1):
+    if not request.user.is_authenticated:
+        raise Http404("Have to be logged in to view this page!")
+
+    followed = Follows.objects.filter(user=request.user)
     return render(request, 'Site/watchlist.html')
 
 def chartData(request, symbol, interval):
