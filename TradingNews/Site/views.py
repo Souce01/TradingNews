@@ -116,8 +116,21 @@ def watchlist(request, filter='relevancy', pageNb=1):
     if not request.user.is_authenticated:
         raise Http404("Have to be logged in to view this page!")
 
-    followed = Follows.objects.filter(user=request.user)
-    return render(request, 'Site/watchlist.html')
+    # if the filter in the request is not in the valid list raise 404
+    if filter not in validFilter:
+        raise Http404("error, invalid filter")
+
+    newsapi = NewsApiClient(api_key=NewsApi_Key)
+
+    followed = []
+    for obj in Follows.objects.filter(user=request.user):
+        followed.append(obj.symbol)
+    query = ' OR '.join(followed)
+
+    articles = newsapi.get_everything(
+        q=query, language='en', sort_by=filter, page=pageNb)
+
+    return render(request, 'Site/watchlist.html', {'debug': query, 'articles': articles, 'page': pageNb, 'filter': filter})
 
 def chartData(request, symbol, interval):
     if request.method == 'GET':

@@ -163,6 +163,14 @@
                 </a>
             </div>
             {% include 'Site/article.html' %}
+            <div class="button-container">
+                {% if page > 1 %}
+                    <a href="{% url 'Site:company-filter-page' company.Symbol filter page|add:'-1' %}" class="btn">&lt Back</a>
+                {% endif %}
+                {% if page < articles.totalResults %}
+                    <a href="{% url 'Site:company-filter-page' company.Symbol filter page|add:'1' %}" class="btn">Next &gt</a>
+                {% endif %}
+            </div>
         </div>
         <div class="col-2">
             <div class="watchlist-container"></div>
