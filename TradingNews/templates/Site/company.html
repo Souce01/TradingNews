@@ -18,7 +18,9 @@
                     "Content-Type": "application/json",
                     'X-CSRFToken': "{{ csrf_token }}"
                 },
-                body: JSON.stringify({ symbol: "{{ company.Symbol }}" })
+                {% autoescape off %}
+                body: JSON.stringify({ symbol: "{{ company.Symbol }}", name: "{{ company.Name }}" })
+                {% endautoescape %}
             }).then(resp => {
                 if (!resp.ok) {
                     throw Error(resp.statusText);
@@ -70,7 +72,7 @@
                                     <div class="profile-price-change green">+{{ endPoint|get:"09. change"|decimalLimit }} ({{ endPoint|get:"10. change percent" }})</div>
                                 {% endif %}
                             </div>
-                            <div style="font-size: 13px;">as of: {{endPoint|get:"07. latest trading day" }}</div>
+                            <div style="font-size: 13px;">as of {{endPoint|get:"07. latest trading day" }}</div>
                         </div>
                         <div class="profile-info">
                             <div class="profile-info-col">

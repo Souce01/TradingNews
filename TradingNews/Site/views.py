@@ -14,7 +14,6 @@ import json
 AlphaVantage_Key = '43RT6XRIMUZDJW8D'
 NewsApi_Key = '69ed3f87e0a34481b5f2da1ab93fd45f'
 validFilter = ['popularity', 'relevancy', 'publishedAt']
-# all request will be in english and from the US for now
 
 def index(request):
     return render(request, 'Site/index.html')
@@ -57,11 +56,18 @@ def logout(request):
     return redirect('Site:index')
 
 
+# view for the company page
+# shows in depth data and articles on the selected stock
 def company(request, symbol, filter='relevancy', pageNb=1):
+    # create the newsapiclient for the articles
     newsapi = NewsApiClient(api_key=NewsApi_Key)
+    
+    # Initiate the context variables
     ctx = {'page': pageNb, 'filter': filter, 'followed': False}
 
+
     if request.user.is_authenticated:
+        # checks if the user is following the stock of the current page
         if Follows.objects.filter(user=request.user, symbol=symbol):
             ctx.update({'followed': True})
 
@@ -83,9 +89,11 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     )
     company = resp.json()
 
+    # The api returns a variable called note if the max numbers of calls are made to the api
     if company.get("note", "") != "":
         raise Http404("api call limit reached")
     
+    # The api returns an empty json file if the symbol has no match
     if len(company) == 0:
         raise Http404("invalid symbol")
 
@@ -122,15 +130,19 @@ def watchlist(request, filter='relevancy', pageNb=1):
 
     newsapi = NewsApiClient(api_key=NewsApi_Key)
 
+    # initiate array used for creating the query
     followed = []
+    
+    # for every followed stock by the user add the symbol to the followed array
     for obj in Follows.objects.filter(user=request.user):
         followed.append(obj.symbol)
+    # Creating the querry from the followed array by joining it with a OR seperator
     query = ' OR '.join(followed)
 
     articles = newsapi.get_everything(
         q=query, language='en', sort_by=filter, page=pageNb)
 
-    return render(request, 'Site/watchlist.html', {'debug': query, 'articles': articles, 'page': pageNb, 'filter': filter})
+    return render(request, 'Site/watchlist.html', {'articles': articles, 'page': pageNb, 'filter': filter})
 
 def chartData(request, symbol, interval):
     if request.method == 'GET':
@@ -175,18 +187,23 @@ def searchEndpoint(request, keyword):
         
         return JsonResponse(data, status=200, safe=False)
 
+# this view will add or remove a stock from the user's followed list
 def follow(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
-            symbol = json.loads(request.body).get("symbol", "")
-            if symbol != "":
+            req     = json.loads(request.body)
+            symbol  = req.get("symbol", "")
+            name    = req.get("name", "")
+            if symbol != "" and name != "":
+                # if the user already follows the stock, remove it from the database
+                # and send confirmation to the front-end
                 if Follows.objects.filter(user=request.user, symbol=symbol):
                     Follows.objects.get(user=request.user,
                                         symbol=symbol).delete()
-                    return JsonResponse({'followed': False, 'symbol': symbol})
+                    return JsonResponse({'followed': False, 'symbol': symbol, 'name': name})
                 else:
                     follow = Follows(user=request.user,
-                                     symbol=symbol)
+                                     symbol=symbol, name=name)
                     follow.save()
-                    return JsonResponse({'symbol': symbol, 'user': request.user.id, 'followed': True})
+                    return JsonResponse({'symbol': symbol, 'name': name, 'user': request.user.id, 'followed': True})
             return JsonResponse({'status': False})

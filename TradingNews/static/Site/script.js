@@ -10,6 +10,10 @@ $(document).click(function () {
 });
 
 
+// input: none
+// output: none
+// description: event handlers that makes a call to the back-end everytime the input changes. 
+//   adds elements of the response to the best matches list under the navbar
 $("#navbar-search-field").on("change input", function (e) {
   if ($(this).val() != ""){
     console.log($(this).val());

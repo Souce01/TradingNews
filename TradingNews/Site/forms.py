@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import password_validation
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
+# Form for the sign up page
+# removes the labels, help text and adds a placeholder in the UserCreationForm
 class SignUpModelForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -19,6 +21,8 @@ class SignUpModelForm(UserCreationForm):
         self.fields['username'].help_text = ''
         self.fields['username'].widget.attrs['placeholder'] = 'Username'
 
+# Form for the login page
+# removes the labels and adds a placeholder in the AuthenticationForm
 class LoginModelForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
