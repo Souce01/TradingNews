@@ -93,8 +93,8 @@
                                     <div>{{ company.52WeekLow|decimalLimit }} - {{ company.52WeekHigh|decimalLimit }}</div>
                                 </div>
                                 <div class="profile-info-element">
-                                    <div>Dividend Yield</div>
-                                    <div>{{ company.DividendYield|percentage }}</div>
+                                    <div>Dividend Yield (%)</div>
+                                    <div>{{ company.DividendYield|percentage|decimalLimit }}</div>
                                 </div>
                             </div>
                             <div class="profile-info-col">
