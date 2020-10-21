@@ -157,7 +157,7 @@ $("#profile-chart-button-60m")
 
 // changes text inside the follow button on hover
 $(document).on('mouseenter', '.followed', function () {
-    $("#follow-button").text("un-follow");
+    $("#follow-button").text("unfollow");
     //console.log('in');
 })
 

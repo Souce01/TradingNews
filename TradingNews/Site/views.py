@@ -114,7 +114,7 @@ def company(request, symbol, filter='relevancy', pageNb=1):
         raise Http404("error, invalid filter")
     
     articles = newsapi.get_everything(
-        q=f"{company['Name']} AND {company['Symbol']}", language='en', sort_by=filter, page=pageNb)
+        q=f'"{company["Name"]}" AND {company["Symbol"]}', language='en', sort_by=filter, page=pageNb)
     ctx.update({'articles': articles})
 
     return render(request, 'Site/company.html', ctx)
@@ -134,14 +134,14 @@ def watchlist(request, filter='relevancy', pageNb=1):
     
     # for every followed stock by the user add the symbol to the followed array
     for obj in Follows.objects.filter(user=request.user):
-        followed.append(obj.symbol)
+        followed.append(f'({obj.symbol} AND "{obj.name}")')
     # Creating the querry from the followed array by joining it with a OR seperator
     query = ' OR '.join(followed)
 
     articles = newsapi.get_everything(
         q=query, language='en', sort_by=filter, page=pageNb)
 
-    return render(request, 'Site/watchlist.html', {'articles': articles, 'page': pageNb, 'filter': filter})
+    return render(request, 'Site/watchlist.html', {'debug': query, 'articles': articles, 'page': pageNb, 'filter': filter})
 
 def chartData(request, symbol, interval):
     if request.method == 'GET':

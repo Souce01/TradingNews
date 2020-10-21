@@ -12,10 +12,10 @@ def format(value):
 # format decimal number to it's percentage equivalent
 @register.filter
 def percentage(value):
-  if value == "None":
-    return value
-  else:
+  if value != "None":
     return str(float(value) * 100)
+  else:
+    return value
 
 # will add a css class to the current filter
 @register.filter
@@ -24,7 +24,6 @@ def currentFilter(value, arg):
         return 'current-filter'
 
 # input: object, string
-# output: string or int
 # get value of key in json data
 @register.filter
 def get(mapping, key):
@@ -35,7 +34,10 @@ def get(mapping, key):
 # limits decimal places of argument
 @register.filter
 def decimalLimit(value, dec=2):
-  return f"{float(value):.{dec}f}"
+  if value != "None":
+    return f"{float(value):.{dec}f}"
+  else:
+    return value
 
 # input: string
 # output: string
