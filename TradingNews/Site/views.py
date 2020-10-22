@@ -90,7 +90,7 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     company = resp.json()
 
     # The api returns a variable called note if the max numbers of calls are made to the api
-    if company.get("Note", "") != "":
+    if company.get("Note"):
         raise Http404("api call limit reached")
     
     # The api returns an empty json file if the symbol has no match
@@ -104,7 +104,7 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     )
     endPoint = resp.json()
 
-    if endPoint.get("Note", "") != "":
+    if endPoint.get("Note"):
         raise Http404("api call limit reached")
 
     ctx.update({'endPoint': endPoint['Global Quote']})
@@ -162,7 +162,7 @@ def chartData(request, symbol, interval):
 
         data = resp.json()
 
-        if data.get("Error Message", "") != "":
+        if data.get("Error Message"):
             return JsonResponse({'status': False, 'message': 'Invalid symbol'}, status=400, safe=False)
 
         return JsonResponse(data, status=200, safe=False)
@@ -180,7 +180,7 @@ def searchEndpoint(request, keyword):
 
         data = resp.json()
 
-        if data.get("Error Message", "") != "":
+        if data.get("Error Message"):
             # invalid keyword response
             return JsonResponse({'status': False, 'message': 'Invalid keyword'}, status=400, safe=False)
         
