@@ -52,48 +52,53 @@ updateChart(myChart, '5min', $("#profile-chart-button-5m"));
 // output: array
 // description: fetch chart labels and chart data from the back-end
 async function getChartData(interval) {
-    try {
+    try{
         const symbol = getSymbol();
         const resp = await fetch(`http://127.0.0.1:8000/api/chartData/${symbol}/${interval}`);
 
         // Throws error if response doesn't have 200 status code
-        if (!resp.ok) throw Error(resp);
-
+        if (!resp.ok)
+            throw new Error(resp);
+        
         const data = await resp.json();
         const parsedData = data[`Time Series (${interval})`];
         const labels = Object.keys(parsedData);
         let price = [];
 
-        for (const key of labels) {
+        for (const key of labels)
             price.push(parsedData[key]['4. close']);
-        };
 
         // reverse before return to sort from oldest to newest
         return [labels.reverse(), price.reverse()];
-    } catch (err) {
-        console.log(err);
+    } catch(err){
+        console.error(err);
     }
+    
 }
 
 // input: object, array
 // output: none
 // description: takes the chart objects and add data inside chart
 function addChartData(chart, data){
-    chart.data.labels = data[0];
-    chart.data.datasets[0].data = data[1];
+    try{
+        chart.data.labels = data[0];
+        chart.data.datasets[0].data = data[1];
 
-    // turns the background color red if the last price is lower than the first
-    // otherwise background color is green
-    chart.data.datasets[0].backgroundColor = function () {
-        let opacity = 0.7
-        if (data[1][data[1].length - 1] < data[1][0]) {
-            return `rgba(240, 22, 47, ${opacity})`;
-        } else {
-            return `rgba(0, 204, 92, ${opacity})`;
+        // turns the background color red if the last price is lower than the first
+        // otherwise background color is green
+        chart.data.datasets[0].backgroundColor = function () {
+            let opacity = 0.7
+            if (data[1][data[1].length - 1] < data[1][0]) {
+                return `rgba(240, 22, 47, ${opacity})`;
+            } else {
+                return `rgba(0, 204, 92, ${opacity})`;
+            }
         }
+        
+        chart.update();
+    } catch(err){
+        console.error(err);
     }
-    
-    chart.update();
 }
 
 // input: object
@@ -113,17 +118,21 @@ function removeChartData(chart){
 //  -updates the chart with the data from getChartData
 //  -adds a css class to the button element related to the selected interval
 function updateChart(chart, interval, element){
-    getChartData(interval).then(data =>{
-        removeChartData(chart);
-        addChartData(chart, data);
-    })
+    try {
+        getChartData(interval).then(data => {
+            removeChartData(chart);
+            addChartData(chart, data);
+        })
 
-    // changes color of the selected interval
-    // removes previous color of all buttons
-    $(".profile-chart-button").removeClass("profile-chart-button-active");
+        // changes color of the selected interval
+        // removes previous color of all buttons
+        $(".profile-chart-button").removeClass("profile-chart-button-active");
 
-    // Changes color of current button to show that it's selected
-    element.addClass("profile-chart-button-active");
+        // Changes color of current button to show that it's selected
+        element.addClass("profile-chart-button-active");
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 // input: none
@@ -158,11 +167,9 @@ $("#profile-chart-button-60m")
 // changes text inside the follow button on hover
 $(document).on('mouseenter', '.followed', function () {
     $("#follow-button").text("unfollow");
-    //console.log('in');
 })
 
 $(document).on('mouseleave', '.followed', function () {
     $("#follow-button").text("followed");
-    //console.log('out');
 })
 

@@ -8,7 +8,6 @@ from .forms import SignUpModelForm, LoginModelForm
 from newsapi import NewsApiClient
 from datetime import datetime
 import requests
-#! just for testing
 import json
 
 AlphaVantage_Key = '43RT6XRIMUZDJW8D'
@@ -65,24 +64,11 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     # Initiate the context variables
     ctx = {'page': pageNb, 'filter': filter, 'followed': False}
 
-
     if request.user.is_authenticated:
         # checks if the user is following the stock of the current page
         if Follows.objects.filter(user=request.user, symbol=symbol):
             ctx.update({'followed': True})
 
-    """
-    #! for testing purposes only.
-    data = open('C:/Users/alexandre/Desktop/project/TradingNews/TradingNews/Site/testingIBM.json')
-    company = json.load(data)
-    ctx.update({'company': company})
-    data.close()
-
-    data = open('C:/Users/alexandre\Desktop\project\TradingNews\TradingNews\Site/testingEndpoint.json')
-    endPoint = json.load(data)
-    ctx.update({'endPoint': endPoint['Global Quote']})
-    data.close()
-    """
     # restricted to 5 api calls per minute and 500 per day. So for tesing sake I'll use a json file for development
     resp = requests.get(
         f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol.upper()}&apikey={AlphaVantage_Key}'
@@ -97,8 +83,6 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     if len(company) == 0:
         raise Http404("invalid symbol")
 
-    ctx.update({'company': company})
-
     resp = requests.get(
         f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol.upper()}&apikey={AlphaVantage_Key}'
     )
@@ -107,7 +91,7 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     if endPoint.get("Note"):
         raise Http404("api call limit reached")
 
-    ctx.update({'endPoint': endPoint['Global Quote']})
+    ctx.update({'endPoint': endPoint['Global Quote'], 'company': company})
 
     # if the filter in the request is not in the valid list raise 404 
     if filter not in validFilter:
@@ -138,8 +122,7 @@ def watchlist(request, filter='relevancy', pageNb=1):
     # Creating the querry from the followed array by joining it with a OR seperator
     query = ' OR '.join(followed)
 
-    articles = newsapi.get_everything(
-        q=query, language='en', sort_by=filter, page=pageNb)
+    articles = newsapi.get_everything(q=query, language='en', sort_by=filter, page=pageNb)
 
     return render(request, 'Site/watchlist.html', {'debug': query, 'articles': articles, 'page': pageNb, 'filter': filter})
 
@@ -150,7 +133,7 @@ def chartData(request, symbol, interval):
 
         # will return an error if the time interval is not in the valid time interval list
         if interval not in validInterval:
-            return JsonResponse({'status': False, 'message': 'Invalid time'}, status=400, safe=False)
+            return JsonResponse({'message': 'Invalid time'}, status=400, safe=False)
 
         resp = requests.get(
             f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey={AlphaVantage_Key}'
@@ -158,12 +141,15 @@ def chartData(request, symbol, interval):
 
         if resp.status_code != 200:
             # invalid request error response
-            return JsonResponse({'status': False, 'message': 'bad request'}, status=400, safe=False)
+            return JsonResponse({'message': 'bad request'}, status=400, safe=False)
 
         data = resp.json()
 
+        if data.get("Note"):
+            return JsonResponse({'message': 'api call limit reached'}, status=400, safe=False)
+
         if data.get("Error Message"):
-            return JsonResponse({'status': False, 'message': 'Invalid symbol'}, status=400, safe=False)
+            return JsonResponse({'message': 'Invalid symbol'}, status=400, safe=False)
 
         return JsonResponse(data, status=200, safe=False)
 
