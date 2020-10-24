@@ -1,14 +1,13 @@
 const ctx = document.getElementById('chart').getContext('2d');
 
 // creating the chart with dummy data
-let data = [['one'],[0]]
 let myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: data[0],
+        labels: ['one'],
         datasets: [{
             label: 'price',
-            data: data[1],
+            data: [0],
             pointRadius: 0
         }]
     },

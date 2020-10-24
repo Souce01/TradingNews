@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Site'
+    'Site',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -97,6 +97,14 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
+    }
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': 'C:/Users/alexandre/Desktop/project/TradingNews/django_cache',
+        'TIMEOUT': 60, # 3600 usually
     }
 }
 

@@ -7,6 +7,7 @@ from .models import Follows
 from .forms import SignUpModelForm, LoginModelForm
 from newsapi import NewsApiClient
 from datetime import datetime
+from .utils import AlphaVantage
 import requests
 import json
 
@@ -58,9 +59,14 @@ def logout(request):
 # view for the company page
 # shows in depth data and articles on the selected stock
 def company(request, symbol, filter='relevancy', pageNb=1):
-    # create the newsapiclient for the articles
+    # if the filter in the request is not in the valid list raise 404
+    if filter not in validFilter:
+        raise Http404("error, invalid filter")
+
     newsapi = NewsApiClient(api_key=NewsApi_Key)
-    
+    alphaVantage = AlphaVantage(key=AlphaVantage_Key)
+    symbol = symbol.upper()
+
     # Initiate the context variables
     ctx = {'page': pageNb, 'filter': filter, 'followed': False}
 
@@ -69,33 +75,10 @@ def company(request, symbol, filter='relevancy', pageNb=1):
         if Follows.objects.filter(user=request.user, symbol=symbol):
             ctx.update({'followed': True})
 
-    # restricted to 5 api calls per minute and 500 per day. So for tesing sake I'll use a json file for development
-    resp = requests.get(
-        f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol.upper()}&apikey={AlphaVantage_Key}'
-    )
-    company = resp.json()
+    company = alphaVantage.Overview(symbol=symbol)
+    endPoint = alphaVantage.Quote(symbol=symbol)
 
-    # The api returns a variable called note if the max numbers of calls are made to the api
-    if company.get("Note"):
-        raise Http404("api call limit reached")
-    
-    # The api returns an empty json file if the symbol has no match
-    if len(company) == 0:
-        raise Http404("invalid symbol")
-
-    resp = requests.get(
-        f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol.upper()}&apikey={AlphaVantage_Key}'
-    )
-    endPoint = resp.json()
-
-    if endPoint.get("Note"):
-        raise Http404("api call limit reached")
-
-    ctx.update({'endPoint': endPoint['Global Quote'], 'company': company})
-
-    # if the filter in the request is not in the valid list raise 404 
-    if filter not in validFilter:
-        raise Http404("error, invalid filter")
+    ctx.update({'endPoint': endPoint, 'company': company})
     
     articles = newsapi.get_everything(
         q=f'"{company["Name"]}" AND {company["Symbol"]}', language='en', sort_by=filter, page=pageNb)
@@ -128,6 +111,7 @@ def watchlist(request, filter='relevancy', pageNb=1):
 
 def chartData(request, symbol, interval):
     if request.method == 'GET':
+        alphaVantage = AlphaVantage(key=AlphaVantage_Key)
         symbol = symbol.upper()
         validInterval = ['1min', '5min', '15min', '30min', '60min']
 
@@ -135,41 +119,17 @@ def chartData(request, symbol, interval):
         if interval not in validInterval:
             return JsonResponse({'message': 'Invalid time'}, status=400, safe=False)
 
-        resp = requests.get(
-            f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey={AlphaVantage_Key}'
-        )
-
-        if resp.status_code != 200:
-            # invalid request error response
-            return JsonResponse({'message': 'bad request'}, status=400, safe=False)
-
-        data = resp.json()
-
-        if data.get("Note"):
-            return JsonResponse({'message': 'api call limit reached'}, status=400, safe=False)
-
-        if data.get("Error Message"):
-            return JsonResponse({'message': 'Invalid symbol'}, status=400, safe=False)
+        data = alphaVantage.Intraday(symbol=symbol, interval=interval)
 
         return JsonResponse(data, status=200, safe=False)
 
 
 def searchEndpoint(request, keyword):
     if request.method == 'GET':
-        resp = requests.get(
-            f"https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={keyword}&apikey={AlphaVantage_Key}"
-        )
-
-        if resp.status_code != 200:
-            # invalid request error response
-            return JsonResponse({'status': False, 'message': 'bad request'}, status=400, safe=False)
-
-        data = resp.json()
-
-        if data.get("Error Message"):
-            # invalid keyword response
-            return JsonResponse({'status': False, 'message': 'Invalid keyword'}, status=400, safe=False)
+        alphaVantage = AlphaVantage(key=AlphaVantage_Key)
         
+        data = alphaVantage.EndPoint(keyword=keyword)
+
         return JsonResponse(data, status=200, safe=False)
 
 # this view will add or remove a stock from the user's followed list

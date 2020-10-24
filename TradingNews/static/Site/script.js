@@ -16,7 +16,6 @@ $(document).click(function () {
 //   adds elements of the response to the best matches list under the navbar
 $("#navbar-search-field").on("change input", function (e) {
   if ($(this).val() != ""){
-    console.log($(this).val());
     fetch(`http://127.0.0.1:8000/api/searchEndPoint/${$(this).val()}`)
       .then(resp => {
         if (!resp.ok) {
@@ -30,17 +29,20 @@ $("#navbar-search-field").on("change input", function (e) {
       .then(data => {
         let content = $('#search-field-content');
         let matches = data['bestMatches'];
+        console.log(matches);
         // clears matches
         content.empty();
         
         for (let x of matches){
-          content.append(`
+          if(x['3. type'] == "Equity"){
+            content.append(`
             <a href="http://127.0.0.1:8000/company/${x['1. symbol']}" class="search-field-content-element">
               <div class="search-element-symbol">${x['1. symbol']}</div>
               <div class="search-element-name">${x['2. name']}</div>
               <div class="search-element-type">${x['3. type']}</div>
             </a>
           `);
+          }
         }
       })
       .catch(err => {
