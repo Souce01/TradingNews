@@ -121,16 +121,16 @@ def chartData(request, symbol, interval):
 
         data = alphaVantage.Intraday(symbol=symbol, interval=interval)
 
-        return JsonResponse(data, status=200, safe=False)
+        return JsonResponse(data)
 
 
 def searchEndpoint(request, keyword):
     if request.method == 'GET':
         alphaVantage = AlphaVantage(key=AlphaVantage_Key)
-        
+
         data = alphaVantage.EndPoint(keyword=keyword)
 
-        return JsonResponse(data, status=200, safe=False)
+        return JsonResponse(data)
 
 # this view will add or remove a stock from the user's followed list
 def follow(request):

@@ -104,7 +104,7 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': 'C:/Users/alexandre/Desktop/project/TradingNews/django_cache',
-        'TIMEOUT': 60, # 3600 usually
+        'TIMEOUT': 3600, # 3600 usually
     }
 }
 
