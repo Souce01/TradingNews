@@ -9,7 +9,7 @@ class AlphaVantage:
     def __init__(self, key):
         self.key = key
     
-    def Overview(self, symbol):
+    def overview(self, symbol):
         if cache.get(f'Overview_{symbol}'):
             return cache.get(f'Overview_{symbol}')
 
@@ -17,13 +17,13 @@ class AlphaVantage:
             f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol}&apikey={self.key}'
         )
 
-        data = self.__HttpError(resp)
+        data = self._http_error(resp)
 
         cache.set(f'Overview_{symbol}', data)
 
         return data
 
-    def Quote(self, symbol):
+    def quote(self, symbol):
         if cache.get(f'Quote_{symbol}'):
             return cache.get(f'Quote_{symbol}')
 
@@ -31,20 +31,20 @@ class AlphaVantage:
             f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={self.key}'
         )
 
-        data = self.__HttpError(resp).get('Global Quote')
+        data = self._http_error(resp).get('Global Quote')
 
         cache.set(f'Quote_{symbol}', data)
 
         return data
 
-    def Intraday(self, symbol, interval):
+    def intraday(self, symbol, interval):
         resp = requests.get(
             f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey={self.key}'
         )
 
-        return self.__JsonError(resp)
+        return self._json_error(resp)
 
-    def EndPoint(self, keyword):
+    def end_point(self, keyword):
         if len(keyword) > 5:
             return 0
 
@@ -55,13 +55,13 @@ class AlphaVantage:
             f"https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={keyword}&apikey={self.key}"
         )
 
-        data = self.__JsonError(resp)
+        data = self._json_error(resp)
 
         cache.set(f'EndPoint_{keyword}', data, 86400)
 
         return data
 
-    def __HttpError(self, response):
+    def _http_error(self, response):
         if response.status_code != 200:
             raise Http404("internal error")
 
@@ -77,7 +77,7 @@ class AlphaVantage:
 
         return data
 
-    def __JsonError(self, response):
+    def _json_error(self, response):
         if response.status_code != 200:
             return JsonResponse({'message': 'bad request'}, status=400, safe=False)
 

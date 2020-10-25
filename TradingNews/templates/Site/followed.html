@@ -8,26 +8,17 @@
                 <th>Last price</th>
                 <th>% Change</th>
             </tr>
-            <tr>
-                <td><a href="">IBM</a></td>
-                <td>10</td>
-                <td>0.05</td>
-            </tr>
-            <tr>
-                <td><a href="">T</a></td>
-                <td>160</td>
-                <td>52</td>
-            </tr>
-            <tr>
-                <td><a href="">F</a></td>
-                <td>1000</td>
-                <td>1000</td>
-            </tr>
-            <tr >
-                <td><a href="">TSLA</a></td>
-                <td>67483</td>
-                <td>8</td>
-            </tr>
+            {% for symbol, follow in followedList.items %}
+                <tr>
+                    <td><a href="{% url 'Site:company' symbol %}">{{ symbol }}</a></td>
+                    <td>{{ follow|get:'05. price'|decimalLimit }}</td>
+                    {% if follow|get:'10. change percent'|first == '-' %}
+                        <td class="red">{{ follow|get:'10. change percent' }}</td>
+                    {% else %}
+                        <td class="green">{{ follow|get:'10. change percent' }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
         </table>
     </div>
 {% endblock %}

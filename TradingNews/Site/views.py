@@ -74,9 +74,17 @@ def company(request, symbol, filter='relevancy', pageNb=1):
         # checks if the user is following the stock of the current page
         if Follows.objects.filter(user=request.user, symbol=symbol):
             ctx.update({'followed': True})
+        
+        # returns user's followed list with quote information
+        followedList = Follows.get_user_follows_quote(
+            user=request.user, alphaVantage=alphaVantage)
 
-    company = alphaVantage.Overview(symbol=symbol)
-    endPoint = alphaVantage.Quote(symbol=symbol)
+        ctx.update({'followedList': followedList})
+        
+
+
+    company = alphaVantage.overview(symbol=symbol)
+    endPoint = alphaVantage.quote(symbol=symbol)
 
     ctx.update({'endPoint': endPoint, 'company': company})
     
@@ -95,6 +103,11 @@ def watchlist(request, filter='relevancy', pageNb=1):
         raise Http404("error, invalid filter")
 
     newsapi = NewsApiClient(api_key=NewsApi_Key)
+    alphaVantage = AlphaVantage(key=AlphaVantage_Key)
+    ctx = {'page': pageNb, 'filter': filter}
+
+    followedList = Follows.get_user_follows_quote(
+        user=request.user, alphaVantage=alphaVantage)
 
     # initiate array used for creating the query
     followed = []
@@ -106,8 +119,9 @@ def watchlist(request, filter='relevancy', pageNb=1):
     query = ' OR '.join(followed)
 
     articles = newsapi.get_everything(q=query, language='en', sort_by=filter, page=pageNb)
+    ctx.update({'articles': articles, 'followedList': followedList})
 
-    return render(request, 'Site/watchlist.html', {'debug': query, 'articles': articles, 'page': pageNb, 'filter': filter})
+    return render(request, 'Site/watchlist.html', ctx)
 
 def chartData(request, symbol, interval):
     if request.method == 'GET':
@@ -119,7 +133,7 @@ def chartData(request, symbol, interval):
         if interval not in validInterval:
             return JsonResponse({'message': 'Invalid time'}, status=400, safe=False)
 
-        data = alphaVantage.Intraday(symbol=symbol, interval=interval)
+        data = alphaVantage.intraday(symbol=symbol, interval=interval)
 
         return JsonResponse(data)
 
@@ -128,7 +142,7 @@ def searchEndpoint(request, keyword):
     if request.method == 'GET':
         alphaVantage = AlphaVantage(key=AlphaVantage_Key)
 
-        data = alphaVantage.EndPoint(keyword=keyword)
+        data = alphaVantage.end_point(keyword=keyword)
 
         return JsonResponse(data)
 

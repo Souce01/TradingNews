@@ -9,3 +9,11 @@ class Follows(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.symbol}'
+
+    @staticmethod
+    def get_user_follows_quote(user, alphaVantage):
+        followedList = {}
+        for follow in Follows.objects.filter(user=user):
+            endPoint = alphaVantage.quote(symbol=follow.symbol)
+            followedList.update({follow.symbol: endPoint})
+        return followedList
