@@ -1,0 +1,33 @@
+{% load custom_filters %}
+{% block followed %}
+    <div class="followed-container">
+        <h3>Followed</h3>
+        <table style="width:100%;">
+            <tr>
+                <th>Symbol</th>
+                <th>Last price</th>
+                <th>% Change</th>
+            </tr>
+            <tr>
+                <td><a href="">IBM</a></td>
+                <td>10</td>
+                <td>0.05</td>
+            </tr>
+            <tr>
+                <td><a href="">T</a></td>
+                <td>160</td>
+                <td>52</td>
+            </tr>
+            <tr>
+                <td><a href="">F</a></td>
+                <td>1000</td>
+                <td>1000</td>
+            </tr>
+            <tr >
+                <td><a href="">TSLA</a></td>
+                <td>67483</td>
+                <td>8</td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
