@@ -9,6 +9,13 @@ $(document).click(function () {
   $("#search-field-content").removeClass("active");
 });
 
+/*
+$(document).scroll(function(){
+  $(".col-2").css('top', $(this).scrollTop());
+  console.log('ok');
+})
+*/
+
 
 // input: none
 // output: none

@@ -172,6 +172,11 @@ a{
   width: 275px;
 }
 
+.col-2-wrapper{
+  position: fixed;
+  width: inherit;
+}
+
 
 /* COL-1 */
 

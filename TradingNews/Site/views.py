@@ -102,8 +102,6 @@ def company(request, symbol, filter='relevancy', pageNb=1):
             user=request.user, alphaVantage=alphaVantage)
 
         ctx.update({'followedList': followedList})
-        
-
 
     company = alphaVantage.overview(symbol=symbol)
     quote = alphaVantage.quote(symbol=symbol)
