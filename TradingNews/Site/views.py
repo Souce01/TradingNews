@@ -106,9 +106,9 @@ def company(request, symbol, filter='relevancy', pageNb=1):
 
 
     company = alphaVantage.overview(symbol=symbol)
-    endPoint = alphaVantage.quote(symbol=symbol)
+    quote = alphaVantage.quote(symbol=symbol)
 
-    ctx.update({'endPoint': endPoint, 'company': company})
+    ctx.update({'quote': quote, 'company': company})
     
     articles = newsapi.get_everything(
         q=f'"{company["Name"]}" AND {company["Symbol"]}', language='en', sort_by=filter, page=pageNb)

@@ -65,28 +65,28 @@
                     <div class="profile-info-container">
                         <div class="profile-price-container">
                             <div>
-                                <div class="profile-price">{{ endPoint|get:"05. price"|decimalLimit:3 }}$</div>
-                                {% if endPoint|get:"09. change"|first == '-' %}
-                                    <div class="profile-price-change red">{{ endPoint|get:"09. change"|decimalLimit }} ({{ endPoint|get:"10. change percent" }})</div>
+                                <div class="profile-price">{{ quote|get:"05. price"|decimalLimit:3 }}$</div>
+                                {% if quote|get:"09. change"|first == '-' %}
+                                    <div class="profile-price-change red">{{ quote|get:"09. change"|decimalLimit }} ({{ quote|get:"10. change percent" }})</div>
                                 {% else %}
-                                    <div class="profile-price-change green">+{{ endPoint|get:"09. change"|decimalLimit }} ({{ endPoint|get:"10. change percent" }})</div>
+                                    <div class="profile-price-change green">+{{ quote|get:"09. change"|decimalLimit }} ({{ quote|get:"10. change percent" }})</div>
                                 {% endif %}
                             </div>
-                            <div style="font-size: 13px;">as of {{endPoint|get:"07. latest trading day" }}</div>
+                            <div style="font-size: 13px;">as of {{quote|get:"07. latest trading day" }}</div>
                         </div>
                         <div class="profile-info">
                             <div class="profile-info-col">
                                 <div class="profile-info-element">
                                     <div>Previous close</div>
-                                    <div>{{ endPoint|get:"08. previous close"|decimalLimit }}</div>
+                                    <div>{{ quote|get:"08. previous close"|decimalLimit }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>Open</div>
-                                    <div>{{ endPoint|get:"02. open"|decimalLimit }}</div>
+                                    <div>{{ quote|get:"02. open"|decimalLimit }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>Day's range</div>
-                                    <div>{{ endPoint|get:"04. low"|decimalLimit }} - {{ endPoint|get:"03. high"|decimalLimit }}</div>
+                                    <div>{{ quote|get:"04. low"|decimalLimit }} - {{ quote|get:"03. high"|decimalLimit }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>52 week range</div>
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="profile-info-element">
                                     <div>Volume</div>
-                                    <div>{{ endPoint|get:"06. volume"|commas }}</div>
+                                    <div>{{ quote|get:"06. volume"|commas }}</div>
                                 </div>
                                 <div class="profile-info-element">
                                     <div>PE Ratio</div>
