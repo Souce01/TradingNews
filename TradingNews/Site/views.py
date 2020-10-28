@@ -1,14 +1,11 @@
 from django.contrib.auth import authenticate, login as dj_login, logout as dj_logout
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.http import Http404, JsonResponse
-from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Follows
 from .forms import SignUpModelForm, LoginModelForm
 from newsapi import NewsApiClient
-from datetime import datetime
 from .utils import AlphaVantage
-import requests
 import json
 
 AlphaVantage_Key = '43RT6XRIMUZDJW8D'
