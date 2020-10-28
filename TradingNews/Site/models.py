@@ -10,6 +10,9 @@ class Follows(models.Model):
     def __str__(self):
         return f'{self.user.username} - {self.symbol}'
 
+    # input:
+    # output:
+    # description:
     @staticmethod
     def get_user_follows_quote(user, alphaVantage):
         followedList = {}

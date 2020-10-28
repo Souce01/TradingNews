@@ -15,9 +15,19 @@ AlphaVantage_Key = '43RT6XRIMUZDJW8D'
 NewsApi_Key = '69ed3f87e0a34481b5f2da1ab93fd45f'
 validFilter = ['popularity', 'relevancy', 'publishedAt']
 
+# input: request
+# output: rendered page
+# description: renders the index page 
 def index(request):
     return render(request, 'Site/index.html')
 
+# input: request
+# output: 
+#   -get: rendered page
+#   -post: redirection
+# description: 
+#   -get: renders sign-up page
+#   -post: creates, authenticate and login a new user from form data
 def signUp(request):
     if request.user.is_authenticated:
         raise Http404("Already authenticated. Sign out to create an account!")
@@ -34,6 +44,13 @@ def signUp(request):
             return redirect('Site:index')
     return render(request, 'Site/sign-up.html', {"form": form})
 
+# input: request
+# output:
+#   -get: rendered page
+#   -post: redirection
+# description:
+#   -get: renders login page
+#   -post: authenticate and login user from form data
 def login(request):
     if request.user.is_authenticated:
         raise Http404("Already authenticated. Sign out to login on another account!")
@@ -51,13 +68,18 @@ def login(request):
 
     return render(request, 'Site/login.html', {"form": form})
 
+# input: request
+# output: redirection
+# description: logout the user
 def logout(request):
     dj_logout(request)
     return redirect('Site:index')
 
-
-# view for the company page
-# shows in depth data and articles on the selected stock
+# input: request, string, string, int
+# output: rendered page
+# description:
+#   view for the company page
+#   shows in depth data and articles on the selected stock
 def company(request, symbol, filter='relevancy', pageNb=1):
     # if the filter in the request is not in the valid list raise 404
     if filter not in validFilter:
@@ -94,6 +116,11 @@ def company(request, symbol, filter='relevancy', pageNb=1):
 
     return render(request, 'Site/company.html', ctx)
 
+# input: request, string, int
+# output: rendered page
+# description:
+#   view for the watchlist
+#   shows all articles related to user's followed list
 def watchlist(request, filter='relevancy', pageNb=1):
     if not request.user.is_authenticated:
         raise Http404("Have to be logged in to view this page!")
@@ -123,6 +150,10 @@ def watchlist(request, filter='relevancy', pageNb=1):
 
     return render(request, 'Site/watchlist.html', ctx)
 
+# input: request, string, string
+# output: json
+# description: 
+#   sends json response of symbol's chart data
 def chartData(request, symbol, interval):
     if request.method == 'GET':
         alphaVantage = AlphaVantage(key=AlphaVantage_Key)
@@ -137,7 +168,11 @@ def chartData(request, symbol, interval):
 
         return JsonResponse(data)
 
-
+# input: request, string
+# output: json
+# description:
+#   returns stocks related to keyword
+#   used for a search bar
 def searchEndpoint(request, keyword):
     if request.method == 'GET':
         alphaVantage = AlphaVantage(key=AlphaVantage_Key)
@@ -146,7 +181,10 @@ def searchEndpoint(request, keyword):
 
         return JsonResponse(data)
 
-# this view will add or remove a stock from the user's followed list
+# input: request
+# output: json
+# description:
+#   this view will add or remove a stock from the user's followed list
 def follow(request):
     if request.method == 'POST':
         if request.user.is_authenticated:

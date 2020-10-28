@@ -9,6 +9,9 @@ class AlphaVantage:
     def __init__(self, key):
         self.key = key
     
+    # input:
+    # output:
+    # description:
     def overview(self, symbol):
         if cache.get(f'Overview_{symbol}'):
             return cache.get(f'Overview_{symbol}')
@@ -23,6 +26,9 @@ class AlphaVantage:
 
         return data
 
+    # input:
+    # output:
+    # description:
     def quote(self, symbol):
         if cache.get(f'Quote_{symbol}'):
             return cache.get(f'Quote_{symbol}')
@@ -37,6 +43,9 @@ class AlphaVantage:
 
         return data
 
+    # input:
+    # output:
+    # description:
     def intraday(self, symbol, interval):
         resp = requests.get(
             f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey={self.key}'
@@ -44,6 +53,9 @@ class AlphaVantage:
 
         return self._json_error(resp)
 
+    # input:
+    # output:
+    # description:
     def end_point(self, keyword):
         if len(keyword) > 5:
             return 0
@@ -61,6 +73,9 @@ class AlphaVantage:
 
         return data
 
+    # input:
+    # output: 
+    # description: 
     def _http_error(self, response):
         if response.status_code != 200:
             raise Http404("internal error")
@@ -77,6 +92,9 @@ class AlphaVantage:
 
         return data
 
+    # input:
+    # output:
+    # description:
     def _json_error(self, response):
         if response.status_code != 200:
             return JsonResponse({'message': 'bad request'}, status=400, safe=False)
