@@ -9,9 +9,11 @@ class AlphaVantage:
     def __init__(self, key):
         self.key = key
     
-    # input:
-    # output:
-    # description:
+    # input: string
+    # output: json
+    # description: 
+    #   returns overview data of a symbol and store the data 
+    #   in cache if it's not already stored
     def overview(self, symbol):
         if cache.get(f'Overview_{symbol}'):
             return cache.get(f'Overview_{symbol}')
@@ -26,9 +28,11 @@ class AlphaVantage:
 
         return data
 
-    # input:
-    # output:
+    # input: string
+    # output: json
     # description:
+    #   returns quote data of a symbol and store the data
+    #   in cache if it's not already stored
     def quote(self, symbol):
         if cache.get(f'Quote_{symbol}'):
             return cache.get(f'Quote_{symbol}')
@@ -43,9 +47,10 @@ class AlphaVantage:
 
         return data
 
-    # input:
-    # output:
+    # input: string, string
+    # output: json
     # description:
+    #   return intraday data of a symbol
     def intraday(self, symbol, interval):
         resp = requests.get(
             f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey={self.key}'
@@ -53,10 +58,13 @@ class AlphaVantage:
 
         return self._json_error(resp)
 
-    # input:
-    # output:
+    # input: string
+    # output: json
     # description:
+    #   returns end point of a keyword and store the data
+    #   in cache if it's not already stored
     def end_point(self, keyword):
+        # if keyword is longer than 5 it's not a stock symbol so return 0
         if len(keyword) > 5:
             return 0
 
@@ -69,13 +77,16 @@ class AlphaVantage:
 
         data = self._json_error(resp)
 
+        # set the timeout of the cache longer because end points are less likely to change
         cache.set(f'EndPoint_{keyword}', data, 86400)
 
         return data
 
-    # input:
-    # output: 
+    # input: response
+    # output: json
     # description: 
+    #   error checking for alpha vantage requests.
+    #   errors will be raise with Http404
     def _http_error(self, response):
         if response.status_code != 200:
             raise Http404("internal error")
@@ -92,9 +103,11 @@ class AlphaVantage:
 
         return data
 
-    # input:
-    # output:
+    # input: response
+    # output: json
     # description:
+    #   error checking for alpha vantage requests.
+    #   errors will sent with JsonResponse
     def _json_error(self, response):
         if response.status_code != 200:
             return JsonResponse({'message': 'bad request'}, status=400, safe=False)
