@@ -1,3 +1,11 @@
 {% extends 'Site/base.html' %}
+{% load static %}
 {% block content %}
+    <div class="content">
+        <div class="hero">
+            <div class="hero-background">
+                <img src="{% static 'Site/hero-img.jpg'%}" style="width: 100%;">
+            </div>
+        </div>
+    </div>
 {% endblock %}
