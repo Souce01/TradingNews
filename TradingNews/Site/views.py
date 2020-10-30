@@ -16,14 +16,23 @@ validFilter = ['popularity', 'relevancy', 'publishedAt']
 # output: rendered page
 # description: renders the index page 
 def index(request):
-    """
+    newsapi = NewsApiClient(api_key=NewsApi_Key)
+
     articles = newsapi.get_top_headlines(
         language='en',
         category='business',
         country='us'
     )
-    """
-    return render(request, 'Site/index.html')
+
+    # creating headlines list
+    headlines = []
+    # removing the first 3 articles and placing them in healines 
+    # because they will be rendered from a previous template
+    # so I have to use different variables
+    for i in range(0, 3):
+        headlines.append(articles['articles'].pop(i))
+
+    return render(request, 'Site/index.html', {'headlines': headlines, 'articles': articles})
 
 # input: request
 # output: 

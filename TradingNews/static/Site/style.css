@@ -191,6 +191,7 @@ a{
   height: 100%;
   overflow: hidden;
   opacity: 0.35;
+  z-index: -1;
 }
 
 /* COL-1 */

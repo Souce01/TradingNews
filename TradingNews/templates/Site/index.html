@@ -16,8 +16,8 @@
                         <a href="{% url 'Site:logout' %}" class="sign-up-button">Logout</a>
                     </div>
                 </div>
-            {% else %}
-                <div class="navbar" style="z-index: 2; position: relative;">
+        {% else %}
+                <div class="navbar" style=" position: relative;">
                     <div class="navbar-options-container">
                         <a href="{% url 'Site:index' %}" ><h1 class="navbar-logo">TradingNews</h1></a>
                     </div>
@@ -27,6 +27,14 @@
                     </div>
                 </div>
             {% endif %}
+    </div>
+    <div>
+        {{ headlines}}
+        <br>
+        <br>
+    </div>
+    <div>
+        {{articles}}
     </div>
 {% endblock %}
 
