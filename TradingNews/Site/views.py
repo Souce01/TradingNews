@@ -16,6 +16,13 @@ validFilter = ['popularity', 'relevancy', 'publishedAt']
 # output: rendered page
 # description: renders the index page 
 def index(request):
+    """
+    articles = newsapi.get_top_headlines(
+        language='en',
+        category='business',
+        country='us'
+    )
+    """
     return render(request, 'Site/index.html')
 
 # input: request
@@ -107,6 +114,7 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     
     articles = newsapi.get_everything(
         q=f'"{company["Name"]}" AND {company["Symbol"]}', language='en', sort_by=filter, page=pageNb)
+    
     ctx.update({'articles': articles})
 
     return render(request, 'Site/company.html', ctx)

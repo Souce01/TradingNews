@@ -1,11 +1,37 @@
 {% extends 'Site/base.html' %}
 {% load static %}
+
+{% block navbar %}
+    <div class="hero">
+        <div class="hero-background">
+            <img src="{% static 'Site/hero-img.jpg'%}" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        {% if user.is_authenticated %}
+                <div class="navbar">
+                    <div class="navbar-options-container">
+                        <a href="{% url 'Site:index' %}" ><h1 class="navbar-logo">TradingNews</h1></a>
+                        <a href="{% url 'Site:watchlist' %}" class="navbar-options-element">watchlist</a>
+                    </div>
+                    <div>
+                        <a href="{% url 'Site:logout' %}" class="sign-up-button">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="navbar" style="z-index: 2; position: relative;">
+                    <div class="navbar-options-container">
+                        <a href="{% url 'Site:index' %}" ><h1 class="navbar-logo">TradingNews</h1></a>
+                    </div>
+                    <div>
+                        <a href="{% url 'Site:sign-up' %}" class="sign-up-button">Sign up</a>
+                        <a href="{% url 'Site:login'%}" class="login-button">Login</a>
+                    </div>
+                </div>
+            {% endif %}
+    </div>
+{% endblock %}
+
 {% block content %}
     <div class="content">
-        <div class="hero">
-            <div class="hero-background">
-                <img src="{% static 'Site/hero-img.jpg'%}" style="width: 100%;">
-            </div>
-        </div>
+        
     </div>
 {% endblock %}
