@@ -13,6 +13,18 @@
   src: url(Roboto-Bold.ttf);
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0.2;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+
 body{
     margin: 0px;
     background-color: #14110f;
@@ -192,6 +204,14 @@ a{
   overflow: hidden;
   opacity: 0.35;
   z-index: -1;
+}
+
+.hero-navbar{
+
+}
+
+.hero-content{
+  
 }
 
 /* COL-1 */
@@ -426,17 +446,6 @@ a{
   font-size: 15px;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0.2;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0px);
-  }
 }
 
 .button-container{
