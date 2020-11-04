@@ -195,7 +195,6 @@ a{
   width: 100%;
   height: 450px;
   position: relative;
-  overflow: hidden;
 }
 
 .hero-background{
@@ -219,7 +218,14 @@ a{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  /* 
+    TODO: find a fix for this problem
+    
+    Had to be hard coded, couldn't find another way. Other wise hero-content overflowed into content.
+    If I used overflow hidden the search bar results would also be hidden. 
+    So it's either 100% with not overflow ( which steps over content) or hard code the height 
+  */
+  height: 398px;
 }
 
 .hero #navbar-search-field-container{
@@ -235,7 +241,10 @@ a{
   padding: 5px 21px;
 }
 
-/* COL-1 */
+.headlines{
+
+}
+
 
 /* PROFILE CSS */
 .profile-container{
