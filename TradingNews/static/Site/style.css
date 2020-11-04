@@ -185,8 +185,12 @@ a{
 }
 
 .col-2-wrapper{
-  position: fixed;
   width: inherit;
+}
+
+.col-2-wrapper.fixed{
+  position: fixed;
+  top: 0;
 }
 
 /* INDEX PAGE */
@@ -220,7 +224,7 @@ a{
   align-items: center;
   /* 
     TODO: find a fix for this problem
-    
+
     Had to be hard coded, couldn't find another way. Other wise hero-content overflowed into content.
     If I used overflow hidden the search bar results would also be hidden. 
     So it's either 100% with not overflow ( which steps over content) or hard code the height 
@@ -229,7 +233,7 @@ a{
 }
 
 .hero #navbar-search-field-container{
-  margin-bottom: 70px;
+  margin-bottom: 50px;
 }
 
 .hero #navbar-search-field{

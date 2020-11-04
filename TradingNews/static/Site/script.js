@@ -1,3 +1,5 @@
+// scripts used in every page except authentication pages
+
 $("#navbar-search-field").click(function(e) {
   $(this).parent().addClass("search-field-container-show");
   $("#search-field-content").addClass("active")
@@ -7,6 +9,20 @@ $("#navbar-search-field").click(function(e) {
 $(document).click(function () {
   $("#navbar-search-field-container").removeClass("search-field-container-show");
   $("#search-field-content").removeClass("active");
+});
+
+$(document).scroll(function () {
+  // only if col-2-wrapper exist. Could be missing because
+  // right now col-2-wrapper only exist if the user is logged in
+  // might change later
+  if($('.col-2-wrapper').length > 0){
+    let elementPosition = $('.col-2').offset()['top'];
+    if ($(this).scrollTop() >= elementPosition) {
+      $('.col-2-wrapper').addClass("fixed")
+    } else {
+      $('.col-2-wrapper').removeClass("fixed")
+    }
+  }
 });
 
 
