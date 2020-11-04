@@ -1,24 +1,38 @@
 {% load custom_filters %}
 {% block followed %}
-    <div class="followed-container">
-        <h3>Followed</h3>
-        <table style="width:100%;">
-            <tr>
-                <th>Symbol</th>
-                <th>Last price</th>
-                <th>% Change</th>
-            </tr>
-            {% for symbol, follow in followedList.items %}
-                <tr>
-                    <td><a href="{% url 'Site:company' symbol %}">{{ symbol }}</a></td>
-                    <td>{{ follow|get:'05. price'|decimalLimit }}</td>
-                    {% if follow|get:'10. change percent'|first == '-' %}
-                        <td class="red">{{ follow|get:'10. change percent' }}</td>
-                    {% else %}
-                        <td class="green">{{ follow|get:'10. change percent' }}</td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
+    
+    {% if user.is_authenticated %}
+        <div class="col-2">
+            <div class="col-2-wrapper">
+                <div class="followed-container">
+                    <h3>Followed</h3>
+                    <table style="width:100%;">
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Last price</th>
+                            <th>% Change</th>
+                        </tr>
+                        {% for symbol, follow in followedList.items %}
+                            <tr>
+                                <td><a href="{% url 'Site:company' symbol %}">{{ symbol }}</a></td>
+                                <td>{{ follow|get:'05. price'|decimalLimit }}</td>
+                                {% if follow|get:'10. change percent'|first == '-' %}
+                                <td class="red">{{ follow|get:'10. change percent' }}</td>
+                                {% else %}
+                                <td class="green">{{ follow|get:'10. change percent' }}</td>
+                                {% endif %}
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3" style="text-align: center;">no company currently followed</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    
 {% endblock %}

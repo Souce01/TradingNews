@@ -1,6 +1,11 @@
 {% extends 'Site/base.html' %}
 {% load static %}
 
+
+{% block scripts %}
+    <script src="{% static 'Site/articles.js' %}"></script>
+{% endblock %}
+
 {% block navbar %}
     <div class="hero">
         <div class="hero-background">
@@ -17,7 +22,7 @@
                     </div>
                 </div>
         {% else %}
-                <div class="navbar" style=" position: relative;">
+                <div class="navbar">
                     <div class="navbar-options-container">
                         <a href="{% url 'Site:index' %}" ><h1 class="navbar-logo">TradingNews</h1></a>
                     </div>
@@ -27,19 +32,24 @@
                     </div>
                 </div>
         {% endif %}
-    </div>
-    <div>
-        {{ headlines}}
-        <br>
-        <br>
-    </div>
-    <div>
-        {{articles}}
+        <div class="hero-content">
+            <h1>The simple and easy way to get your trading news.</h1>
+            <div id="navbar-search-field-container">
+                <input type="text" id="navbar-search-field" placeholder="Search for a stock...">
+                <div id="search-field-content"></div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
 {% block content %}
     <div class="content">
-        
+        <div class="col-1">
+            <div class="headlines">
+
+            </div>
+            {% include 'Site/article.html' %}
+        </div>
+        {% include 'Site/followed.html' %}
     </div>
 {% endblock %}

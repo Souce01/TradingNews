@@ -29,7 +29,6 @@ $("#navbar-search-field").on("change input", function (e) {
       .then(data => {
         let content = $('#search-field-content');
         let matches = data['bestMatches'];
-        console.log(matches);
         // clears matches
         content.empty();
         

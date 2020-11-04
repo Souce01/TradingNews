@@ -191,10 +191,11 @@ a{
 
 /* INDEX PAGE */
 .hero{
+  display: inline-block;
   width: 100%;
   height: 450px;
   position: relative;
-  z-index: 1;
+  overflow: hidden;
 }
 
 .hero-background{
@@ -206,12 +207,32 @@ a{
   z-index: -1;
 }
 
-.hero-navbar{
-
+.hero .navbar{
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 .hero-content{
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.hero #navbar-search-field-container{
+  margin-bottom: 70px;
+}
+
+.hero #navbar-search-field{
+  padding: 8px 12px;
+  border: 1px solid #343434;
+}
+
+.hero #search-field-content{
+  padding: 5px 21px;
 }
 
 /* COL-1 */

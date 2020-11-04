@@ -5,6 +5,7 @@ from .models import Follows
 import requests
 import json
 
+
 class AlphaVantage:
     def __init__(self, key):
         self.key = key
@@ -22,7 +23,7 @@ class AlphaVantage:
             f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol}&apikey={self.key}'
         )
 
-        data = self._http_error(resp)
+        data = self.__http_error(resp)
 
         cache.set(f'Overview_{symbol}', data)
 
@@ -41,7 +42,7 @@ class AlphaVantage:
             f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={self.key}'
         )
 
-        data = self._http_error(resp).get('Global Quote')
+        data = self.__http_error(resp).get('Global Quote')
 
         cache.set(f'Quote_{symbol}', data)
 
@@ -56,7 +57,7 @@ class AlphaVantage:
             f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey={self.key}'
         )
 
-        return self._json_error(resp)
+        return self.__json_error(resp)
 
     # input: string
     # output: json
@@ -75,7 +76,7 @@ class AlphaVantage:
             f"https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={keyword}&apikey={self.key}"
         )
 
-        data = self._json_error(resp)
+        data = self.__json_error(resp)
 
         # set the timeout of the cache longer because end points are less likely to change
         cache.set(f'EndPoint_{keyword}', data, 86400)
@@ -87,7 +88,7 @@ class AlphaVantage:
     # description: 
     #   error checking for alpha vantage requests.
     #   errors will be raise with Http404
-    def _http_error(self, response):
+    def __http_error(self, response):
         if response.status_code != 200:
             raise Http404("internal error")
 
@@ -108,7 +109,7 @@ class AlphaVantage:
     # description:
     #   error checking for alpha vantage requests.
     #   errors will sent with JsonResponse
-    def _json_error(self, response):
+    def __json_error(self, response):
         if response.status_code != 200:
             return JsonResponse({'message': 'bad request'}, status=400, safe=False)
 

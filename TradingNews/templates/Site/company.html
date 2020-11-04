@@ -174,12 +174,6 @@
                 {% endif %}
             </div>
         </div>
-        {% if user.is_authenticated %}
-            <div class="col-2">
-                <div class="col-2-wrapper">
-                    {% include 'Site/followed.html' %}
-                </div>
-            </div>
-        {% endif %}
+        {% include 'Site/followed.html' %}
     </div>
 {% endblock %}

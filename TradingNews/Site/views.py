@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate, login as dj_login, logout as dj_logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import Http404, JsonResponse
-from django.contrib.auth.models import User
 from .models import Follows
 from .forms import SignUpModelForm, LoginModelForm
 from newsapi import NewsApiClient
@@ -133,10 +134,10 @@ def company(request, symbol, filter='relevancy', pageNb=1):
 # description:
 #   view for the watchlist
 #   shows all articles related to user's followed list
-def watchlist(request, filter='relevancy', pageNb=1):
-    if not request.user.is_authenticated:
-        raise Http404("Have to be logged in to view this page!")
 
+
+@login_required
+def watchlist(request, filter='relevancy', pageNb=1):
     # if the filter in the request is not in the valid list raise 404
     if filter not in validFilter:
         raise Http404("error, invalid filter")
@@ -188,7 +189,6 @@ def chartData(request, symbol, interval):
 def searchEndpoint(request, keyword):
     if request.method == 'GET':
         alphaVantage = AlphaVantage(key=AlphaVantage_Key)
-
         data = alphaVantage.end_point(keyword=keyword)
 
         return JsonResponse(data)
@@ -197,22 +197,22 @@ def searchEndpoint(request, keyword):
 # output: json
 # description:
 #   this view will add or remove a stock from the user's followed list
+@login_required
 def follow(request):
     if request.method == 'POST':
-        if request.user.is_authenticated:
-            req     = json.loads(request.body)
-            symbol  = req.get("symbol", "")
-            name    = req.get("name", "")
-            if symbol != "" and name != "":
-                # if the user already follows the stock, remove it from the database
-                # and send confirmation to the front-end
-                if Follows.objects.filter(user=request.user, symbol=symbol):
-                    Follows.objects.get(user=request.user,
-                                        symbol=symbol).delete()
-                    return JsonResponse({'followed': False, 'symbol': symbol, 'name': name})
-                else:
-                    follow = Follows(user=request.user,
-                                     symbol=symbol, name=name)
-                    follow.save()
-                    return JsonResponse({'symbol': symbol, 'name': name, 'user': request.user.id, 'followed': True})
-            return JsonResponse({'status': False})
+        req     = json.loads(request.body)
+        symbol  = req.get("symbol", "")
+        name    = req.get("name", "")
+        if symbol != "" and name != "":
+            # if the user already follows the stock, remove it from the database
+            # and send confirmation to the front-end
+            if Follows.objects.filter(user=request.user, symbol=symbol):
+                Follows.objects.get(user=request.user,
+                                    symbol=symbol).delete()
+                return JsonResponse({'followed': False, 'symbol': symbol, 'name': name})
+            else:
+                follow = Follows(user=request.user,
+                                 symbol=symbol, name=name)
+                follow.save()
+                return JsonResponse({'symbol': symbol, 'name': name, 'user': request.user.id, 'followed': True})
+        return JsonResponse({'status': False})
