@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login as dj_login, logout as dj_logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import cache_page
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import Http404, JsonResponse
@@ -15,25 +16,35 @@ validFilter = ['popularity', 'relevancy', 'publishedAt']
 
 # input: request
 # output: rendered page
-# description: renders the index page 
+# description: renders the index page
 def index(request):
     newsapi = NewsApiClient(api_key=NewsApi_Key)
+    ctx = {}
 
     articles = newsapi.get_top_headlines(
         language='en',
         category='business',
         country='us'
     )
-
-    # creating headlines list
-    headlines = []
+    
     # removing the first 3 articles and placing them in healines 
     # because they will be rendered from a previous template
     # so I have to use different variables
+    headlines = []
     for i in range(0, 3):
         headlines.append(articles['articles'].pop(i))
+    
+    ctx.update({'headlines': headlines, 'articles': articles})
 
-    return render(request, 'Site/index.html', {'headlines': headlines, 'articles': articles})
+    if request.user.is_authenticated:
+        alphaVantage = AlphaVantage(key=AlphaVantage_Key)
+        # returns user's followed list with quote information
+        followedList = Follows.get_user_follows_quote(
+            user=request.user, alphaVantage=alphaVantage)
+
+        ctx.update({'followedList': followedList})
+
+    return render(request, 'Site/index.html', ctx)
 
 # input: request
 # output: 
