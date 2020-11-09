@@ -130,7 +130,6 @@ def company(request, symbol, filter='relevancy', pageNb=1):
 
     company = alphaVantage.overview(symbol=symbol)
     quote = alphaVantage.quote(symbol=symbol).get('Global Quote')
-    print(quote)
 
     ctx.update({'quote': quote, 'company': company})
     
@@ -146,8 +145,6 @@ def company(request, symbol, filter='relevancy', pageNb=1):
 # description:
 #   view for the watchlist
 #   shows all articles related to user's followed list
-
-
 @login_required
 def watchlist(request, filter='relevancy', pageNb=1):
     # if the filter in the request is not in the valid list raise 404

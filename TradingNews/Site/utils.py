@@ -12,14 +12,12 @@ def cache_data(function):
     def wrapper(*args, **kwargs):
         param = '_'.join(kwargs.values())
         query = f'{function.__name__}_{param}'
-        print(query)
         if cache.get(query):
             return cache.get(query)
 
         data = function(*args, **kwargs)
 
         cache.set(query, data)
-
         return data
     return wrapper
 
@@ -76,7 +74,7 @@ def http_error(function):
     wrapper.__name__ = function.__name__
     return wrapper
 
-#! WHEN USING THE OVERVIEW, QUOTE AND END_POINT FUNCTION ALWAYS USE 
+#! WHEN USING ANY FUNCTION THAT USES THE CACHE_DATA DECORATOR ALWAYS USE 
 #! KEYWORD ARGUMENTS OTHERWISE THE DATA WILL NOT BE CACHED
 class AlphaVantage:
     def __init__(self, key):

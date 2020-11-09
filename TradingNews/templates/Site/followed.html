@@ -1,7 +1,7 @@
 {% load custom_filters %}
 {% block followed %}
-    
     {% if user.is_authenticated %}
+        {# followed.html has col-2 integrated in it for now because it is not used anywhere else. Might change later on #}
         <div class="col-2">
             <div class="col-2-wrapper">
                 <div class="followed-container">
