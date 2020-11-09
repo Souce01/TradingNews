@@ -129,7 +129,8 @@ def company(request, symbol, filter='relevancy', pageNb=1):
         ctx.update({'followedList': followedList})
 
     company = alphaVantage.overview(symbol=symbol)
-    quote = alphaVantage.quote(symbol=symbol)
+    quote = alphaVantage.quote(symbol=symbol).get('Global Quote')
+    print(quote)
 
     ctx.update({'quote': quote, 'company': company})
     
