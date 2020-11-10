@@ -202,11 +202,14 @@ a{
 }
 
 .hero-background{
+  opacity: 0.35;
+}
+
+.hero-background, .headlines-main-background{
   position: absolute;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  opacity: 0.35;
   z-index: -1;
 }
 
@@ -245,9 +248,42 @@ a{
   padding: 5px 21px;
 }
 
+/* HEADLINES ARTICLES */
+
 .headlines{
+  display: flex;
 
 }
+
+.headlines-main, .headlines-right{
+  width: 50%;
+  height: 300px;
+  margin: 10px;
+}
+
+.headlines-main{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.headlines-main h2{
+  margin: 0px 10px 30px 10px;
+}
+
+.headlines-main-background{
+  opacity: 0.5;
+}
+
+.headlines-element{
+  display: flex;
+}
+
+.headlines-element:first-of-type{
+  margin-bottom: 20px;
+}
+
 
 
 /* PROFILE CSS */
