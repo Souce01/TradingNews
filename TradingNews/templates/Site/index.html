@@ -50,17 +50,17 @@
                     <div class="headlines-main-background">
                         <img src="{{ headlines.0.urlToImage|default_if_none:'https://static.vecteezy.com/system/resources/thumbnails/000/604/014/small/2304-16.jpg' }}" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
-                    <h2>{{ headlines.0.title }}</h2>
+                    <h2 style="text-shadow: 1px 1px 1px #555">{{ headlines.0.title }}</h2>
                 </a>
                 <div class="headlines-right">
-                    <div class="headlines-element">
-                        <img src="{{ headlines.1.urlToImage|default_if_none:'https://static.vecteezy.com/system/resources/thumbnails/000/604/014/small/2304-16.jpg' }}" style="width: 150px; object-fit: cover;">
+                    <a class="headlines-element" href="{{ headlines.1.url }}" target="_blank">
+                        <img src="{{ headlines.1.urlToImage|default_if_none:'https://static.vecteezy.com/system/resources/thumbnails/000/604/014/small/2304-16.jpg' }}" style="opacity: 0.9;">
                         <h3>{{ headlines.1.title }}</h3>
-                    </div>
-                    <div class="headlines-element">
-                        <img src="{{ headlines.2.urlToImage|default_if_none:'https://static.vecteezy.com/system/resources/thumbnails/000/604/014/small/2304-16.jpg' }}" style="width: 150px; object-fit: cover;">
+                    </a>
+                    <a class="headlines-element" href="{{ headlines.2.url }}" target="_blank">
+                        <img src="{{ headlines.2.urlToImage|default_if_none:'https://static.vecteezy.com/system/resources/thumbnails/000/604/014/small/2304-16.jpg' }}"  style="opacity: 0.9;">
                         <h3>{{ headlines.2.title }}</h3>
-                    </div>
+                    </a>
                 </div>
             </div>
             {% include 'Site/article.html' %}

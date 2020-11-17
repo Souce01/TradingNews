@@ -14,3 +14,12 @@ $(".article")
         $(this).find(".article-title").css("color", "white");
         e.preventDefault();
     });
+
+$(".headlines-element")
+    .hover(function (e) {
+        $(this).find("h3").css("color", "#4193c6");
+        e.preventDefault();
+    }, function (e) {
+        $(this).find("h3").css("color", "white");
+        e.preventDefault();
+    });

@@ -273,17 +273,31 @@ a{
 }
 
 .headlines-main-background{
-  opacity: 0.5;
+  opacity: 0.6;
+}
+
+.headlines-right{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .headlines-element{
   display: flex;
 }
 
+.headlines-element img{
+  margin-right: 10px;
+  width: 200px;
+  height: 140px;
+  object-fit: cover;
+}
+
+/*
 .headlines-element:first-of-type{
   margin-bottom: 20px;
 }
-
+*/
 
 
 /* PROFILE CSS */

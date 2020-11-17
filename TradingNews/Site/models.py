@@ -18,6 +18,6 @@ class Follows(models.Model):
     def get_user_follows_quote(user, alphaVantage):
         followedList = {}
         for follow in Follows.objects.filter(user=user):
-            data = alphaVantage.quote(symbol=follow.symbol)
+            data = alphaVantage.quote(symbol=follow.symbol).get('Global Quote')
             followedList.update({follow.symbol: data})
         return followedList
