@@ -30,9 +30,8 @@ def index(request):
     # removing the first 3 articles and placing them in healines 
     # because they will be rendered from a previous template
     # so I have to use different variables
-    headlines = []
-    for i in range(0, 3):
-        headlines.append(articles['articles'].pop(i))
+    headlines = articles['articles'][:3]
+    del articles['articles'][:3]
     
     ctx.update({'headlines': headlines, 'articles': articles})
 
@@ -79,7 +78,7 @@ def signUp(request):
 def login(request):
     if request.user.is_authenticated:
         raise Http404("Already authenticated. Sign out to login on another account!")
-
+    
     form = LoginModelForm()
     if request.method == 'POST':
         form = LoginModelForm(request=request, data=request.POST)
@@ -130,13 +129,11 @@ def company(request, symbol, filter='relevancy', pageNb=1):
 
     company = alphaVantage.overview(symbol=symbol)
     quote = alphaVantage.quote(symbol=symbol).get('Global Quote')
-
-    ctx.update({'quote': quote, 'company': company})
     
     articles = newsapi.get_everything(
         q=f'"{company["Name"]}" AND {company["Symbol"]}', language='en', sort_by=filter, page=pageNb)
     
-    ctx.update({'articles': articles})
+    ctx.update({'articles': articles, 'quote': quote, 'company': company})
 
     return render(request, 'Site/company.html', ctx)
 
@@ -188,7 +185,7 @@ def chartData(request, symbol, interval):
 
         data = alphaVantage.intraday(symbol=symbol, interval=interval)
 
-        return JsonResponse(data)
+        return JsonResponse(data, safe=False)
 
 # input: request, string
 # output: json
@@ -200,7 +197,7 @@ def searchEndpoint(request, keyword):
         alphaVantage = AlphaVantage(key=AlphaVantage_Key)
         data = alphaVantage.end_point(keyword=keyword)
 
-        return JsonResponse(data)
+        return JsonResponse(data, safe=False)
 
 # input: request
 # output: json
@@ -218,10 +215,10 @@ def follow(request):
             if Follows.objects.filter(user=request.user, symbol=symbol):
                 Follows.objects.get(user=request.user,
                                     symbol=symbol).delete()
-                return JsonResponse({'followed': False, 'symbol': symbol, 'name': name})
+                return JsonResponse({'followed': False, 'symbol': symbol, 'name': name}, safe=False)
             else:
                 follow = Follows(user=request.user,
                                  symbol=symbol, name=name)
                 follow.save()
-                return JsonResponse({'symbol': symbol, 'name': name, 'user': request.user.id, 'followed': True})
-        return JsonResponse({'status': False})
+                return JsonResponse({'symbol': symbol, 'name': name, 'user': request.user.id, 'followed': True}, safe=False)
+        return JsonResponse({'status': False}, safe=False)
