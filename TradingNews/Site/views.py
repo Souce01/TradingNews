@@ -9,13 +9,10 @@ from .forms import SignUpModelForm, LoginModelForm
 from newsapi import NewsApiClient
 from .utils import AlphaVantage
 import json
-import environ
+import os
 
-env = environ.Env()
-environ.Env.read_env()
-
-NEWSAPI_KEY = env('NEWSAPI_KEY')
-ALPHAVANTAGE_KEY = env('ALPHAVANTAGE_KEY')
+NEWSAPI_KEY = os.environ.get('NEWSAPI_KEY')
+ALPHAVANTAGE_KEY = os.environ.get('ALPHAVANTAGE_KEY')
 
 validFilter = ['popularity', 'relevancy', 'publishedAt']
 
