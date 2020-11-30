@@ -12,6 +12,7 @@ django-environ = "*"
 dj-database-url = "*"
 django-bmemcached = "*"
 psycopg2-binary = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
