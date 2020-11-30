@@ -17,7 +17,8 @@ class Follows(models.Model):
     @staticmethod
     def get_user_follows_quote(user, alphaVantage):
         followedList = {}
-        for follow in Follows.objects.filter(user=user):
-            data = alphaVantage.quote(symbol=follow.symbol).get('Global Quote')
-            followedList.update({follow.symbol: data})
-        return followedList
+        if Follows.objects.filter(user=user):
+            for follow in Follows.objects.filter(user=user):
+                data = alphaVantage.quote(symbol=follow.symbol).get('Global Quote')
+                followedList.update({follow.symbol: data})
+            return followedList

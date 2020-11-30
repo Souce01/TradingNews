@@ -11,16 +11,20 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+env = environ.Env()
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'x^@m7%moc5x&%+0(_3)$zafhsfnw6f6bci2fj=0&5!4i!vh_fv'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,6 +38,8 @@ STATICFILES_DIRS = [
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 10 * 60
 SESSION_SAVE_EVERY_REQUEST = True
+
+
 
 # Application definition
 
@@ -89,16 +95,38 @@ WSGI_APPLICATION = 'TradingNews.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+
+
 DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+}
+
+servers = env('MEMCACHIER_SERVERS')
+username = env('MEMCACHIER_USERNAME')
+password = env('MEMCACHIER_PASSWORD')
+
+CACHES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'tradingNews',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        # Use django-bmemcached
+        'BACKEND': 'django_bmemcached.memcached.BMemcached',
+
+        # TIMEOUT is not the connection timeout! It's the default expiration
+        # timeout that should be applied to keys! Setting it to `None`
+        # disables expiration.
+        'TIMEOUT': 3600,
+
+        'LOCATION': servers,
+
+        'OPTIONS': {
+            'username': username,
+            'password': password,
+        }
     }
 }
+
+"""
+old caching system
+
 
 CACHES = {
     'default': {
@@ -107,6 +135,7 @@ CACHES = {
         'TIMEOUT': 3600, # 3600 usually
     }
 }
+"""
 
 
 # Password validation

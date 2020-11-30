@@ -9,16 +9,21 @@ from .forms import SignUpModelForm, LoginModelForm
 from newsapi import NewsApiClient
 from .utils import AlphaVantage
 import json
+import environ
 
-AlphaVantage_Key = '43RT6XRIMUZDJW8D'
-NewsApi_Key = '69ed3f87e0a34481b5f2da1ab93fd45f'
+env = environ.Env()
+environ.Env.read_env()
+
+NEWSAPI_KEY = env('NEWSAPI_KEY')
+ALPHAVANTAGE_KEY = env('ALPHAVANTAGE_KEY')
+
 validFilter = ['popularity', 'relevancy', 'publishedAt']
 
 # input: request
 # output: rendered page
 # description: renders the index page
 def index(request):
-    newsapi = NewsApiClient(api_key=NewsApi_Key)
+    newsapi = NewsApiClient(api_key=NEWSAPI_KEY)
     ctx = {}
 
     articles = newsapi.get_top_headlines(
@@ -36,7 +41,7 @@ def index(request):
     ctx.update({'headlines': headlines, 'articles': articles})
 
     if request.user.is_authenticated:
-        alphaVantage = AlphaVantage(key=AlphaVantage_Key)
+        alphaVantage = AlphaVantage(key=ALPHAVANTAGE_KEY)
         # returns user's followed list with quote information
         followedList = Follows.get_user_follows_quote(
             user=request.user, alphaVantage=alphaVantage)
@@ -109,8 +114,8 @@ def company(request, symbol, filter='relevancy', pageNb=1):
     if filter not in validFilter:
         raise Http404("error, invalid filter")
 
-    newsapi = NewsApiClient(api_key=NewsApi_Key)
-    alphaVantage = AlphaVantage(key=AlphaVantage_Key)
+    newsapi = NewsApiClient(api_key=NEWSAPI_KEY)
+    alphaVantage = AlphaVantage(key=ALPHAVANTAGE_KEY)
     symbol = symbol.upper()
 
     # Initiate the context variables
@@ -148,24 +153,27 @@ def watchlist(request, filter='relevancy', pageNb=1):
     if filter not in validFilter:
         raise Http404("error, invalid filter")
 
-    newsapi = NewsApiClient(api_key=NewsApi_Key)
-    alphaVantage = AlphaVantage(key=AlphaVantage_Key)
+    newsapi = NewsApiClient(api_key=NEWSAPI_KEY)
+    alphaVantage = AlphaVantage(key=ALPHAVANTAGE_KEY)
     ctx = {'page': pageNb, 'filter': filter}
 
     followedList = Follows.get_user_follows_quote(
         user=request.user, alphaVantage=alphaVantage)
 
-    # initiate array used for creating the query
-    followed = []
-    
-    # for every followed stock by the user add the symbol to the followed array
-    for obj in Follows.objects.filter(user=request.user):
-        followed.append(f'({obj.symbol} AND "{obj.name}")')
-    # Creating the querry from the followed array by joining it with a OR seperator
-    query = ' OR '.join(followed)
+    if followedList is not None:
+        # initiate array used for creating the query
+        followed = []
+        
+        # for every followed stock by the user add the symbol to the followed array
+        for obj in Follows.objects.filter(user=request.user):
+            followed.append(f'({obj.symbol} AND "{obj.name}")')
+        # Creating the querry from the followed array by joining it with a OR seperator
+        query = ' OR '.join(followed)
 
-    articles = newsapi.get_everything(q=query, language='en', sort_by=filter, page=pageNb)
-    ctx.update({'articles': articles, 'followedList': followedList})
+        articles = newsapi.get_everything(q=query, language='en', sort_by=filter, page=pageNb)
+        ctx.update({'articles': articles, 'followedList': followedList})
+
+    #TODO message when you don't have any followed
 
     return render(request, 'Site/watchlist.html', ctx)
 
@@ -175,7 +183,7 @@ def watchlist(request, filter='relevancy', pageNb=1):
 #   sends json response of symbol's chart data
 def chartData(request, symbol, interval):
     if request.method == 'GET':
-        alphaVantage = AlphaVantage(key=AlphaVantage_Key)
+        alphaVantage = AlphaVantage(key=ALPHAVANTAGE_KEY)
         symbol = symbol.upper()
         validInterval = ['1min', '5min', '15min', '30min', '60min']
 
@@ -194,7 +202,7 @@ def chartData(request, symbol, interval):
 #   used for a search bar
 def searchEndpoint(request, keyword):
     if request.method == 'GET':
-        alphaVantage = AlphaVantage(key=AlphaVantage_Key)
+        alphaVantage = AlphaVantage(key=ALPHAVANTAGE_KEY)
         data = alphaVantage.end_point(keyword=keyword)
 
         return JsonResponse(data, safe=False)
