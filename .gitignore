@@ -1,0 +1,9 @@
+/commands.txt
+/Pipfile.lock
+/mysqlclient-1.4.6-cp37-cp37m-win32.whl
+/out
+/.VSCodeCounter
+/.vscode
+/django_cache
+/Site/.env
+/TradingNews/.env
