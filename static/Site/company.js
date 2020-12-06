@@ -1,4 +1,6 @@
 const ctx = document.getElementById('chart').getContext('2d');
+const URL = 'https://tradingnews.herokuapp.com'
+
 
 // creating the chart with dummy data
 let myChart = new Chart(ctx, {
@@ -53,7 +55,7 @@ updateChart(myChart, '5min', $("#profile-chart-button-5m"));
 async function getChartData(interval) {
     try{
         const symbol = getSymbol();
-        const resp = await fetch(`http://127.0.0.1:8000/api/chartData/${symbol}/${interval}`);
+        const resp = await fetch(`${URL}/api/chartData/${symbol}/${interval}`);
 
         // Throws error if response doesn't have 200 status code
         if (!resp.ok)
