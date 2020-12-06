@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-#import environ
 import dj_database_url
 import django_heroku
 
@@ -177,7 +176,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = 'C:/Users/alexandre/Desktop/project/TradingNews/TradingNews/static'
+STATIC_ROOT = 'C:/Users/alexandre/Desktop/project/TradingNews/static'
 
 
 LOGIN_REDIRECT_URL = '/login'
