@@ -1,5 +1,6 @@
 // scripts used in every page except authentication pages
-const URL = 'https://tradingnews.herokuapp.com'
+const production = 'https://tradingnews.herokuapp.com'
+const local = 'http://127.0.0.1:8000'
 
 $("#navbar-search-field").click(function(e) {
   $(this).parent().addClass("search-field-container-show");
@@ -33,7 +34,7 @@ $(document).scroll(function () {
 //   adds elements of the response to the best matches list under the navbar
 $("#navbar-search-field").on("change input", function (e) {
   if ($(this).val() != ""){
-    fetch(`${URL}/api/searchEndPoint/${$(this).val()}`)
+    fetch(`${production}/api/searchEndPoint/${$(this).val()}`)
       .then(resp => {
         if (!resp.ok) {
           throw Error(resp.statusText);
@@ -52,7 +53,7 @@ $("#navbar-search-field").on("change input", function (e) {
         for (let x of matches){
           if(x['3. type'] == "Equity"){
             content.append(`
-            <a href="${URL}/company/${x['1. symbol']}" class="search-field-content-element">
+            <a href="${production}/company/${x['1. symbol']}" class="search-field-content-element">
               <div class="search-element-symbol">${x['1. symbol']}</div>
               <div class="search-element-name">${x['2. name']}</div>
               <div class="search-element-type">${x['3. type']}</div>
